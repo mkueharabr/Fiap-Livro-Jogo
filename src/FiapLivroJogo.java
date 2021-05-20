@@ -16,25 +16,39 @@ public class FiapLivroJogo {
 	private static String nomeGamer;
 	private static final int idadeMinimaGamer = 16;
 	
+	private static Scanner leitor = new Scanner(System.in);
+	
 	
 	public static void main(String[] args) throws InterruptedException, IOException {
 		
 		boolean resposta = apresentacao();
+
 		
 		while(resposta) {
+			
+			
 			limpaTela();
 			abertura();
+			
 			limpaTela();	
+			cenaKlingdonSentarJunto();
 			
 			resposta = false;
 		}
+		
+		
+		gameOver();
+		
+		leitor.close();
 
 	}
 	
 	private static boolean apresentacao() throws IOException, InterruptedException {
-		Scanner leitor = new Scanner(System.in);
+		
 		String resposta;
 		boolean	continuar = true;
+		
+		limpaTela();
 		
 		System.out.println("Olá, sou Jarvis, seu assistente virtual. Antes de começarmos preciso de algumas");
 		System.out.println("informações pessoais.");
@@ -77,7 +91,7 @@ public class FiapLivroJogo {
 			}
 		}
 		
-		leitor.close();
+		
 		
 		return continuar;
 	}
@@ -113,6 +127,23 @@ public class FiapLivroJogo {
 			}
 			System.out.println(linha);
 		}
+	}
+	
+	private static void imprimeCaracter(String[] texto, int velocidade) {
+		for (String linha : texto) {
+			if (linha == "") {
+				System.out.println("");
+				pausaMiliSegundos(velocidade * 100);
+			} else {
+				for(int i = 0; i < linha.length();i++) {
+					char caracter = linha.charAt(i);
+					System.out.print(caracter);
+					pausaMiliSegundos(velocidade);
+				}
+				System.out.println("");
+			}
+
+		}		
 	}
 	
 	
@@ -157,24 +188,27 @@ public class FiapLivroJogo {
 	
 	private static void abertura() {
 		
-		String titulo = "                  Mario numa galáxia distante combatendo o virus zumbi";
-		String intro = "Há muito tempo atrás numa galáxia não tão distante ...";
-		String [] resumo = {"Mario, o nosso herói, é um engenheiro encanador espacial que vive num planeta azul",
-							"conhecido com Thera, onde vive com a família e pets num reino chamado Cattleland.",
+		String[] titulo = {"                  MARIO NUMA GALÁXIA DISTANTE COMBATENDO O VIRUS ZUMBI"};
+		String[] intro = {"Há muito tempo atrás numa galáxia não tão distante ..."};
+		String [] resumo = {"Mario, o nosso herói, é um engenheiro encanador quântico que vive num planeta azul",
+							"conhecido com Thera, onde mora com a família e pets num reino chamado Cattleland.",
 							"",
-							"Thera e suas 4 luas ficam a algumas centenas de parsecs de distância de Tatooine. No reino de",
-							"Cattleland onde algumas pessoas ainda acreditam que o planeta é plano e em outras teorias",
-							"conspiratórias, como a de que um novo vírus zumbi desconhecido ser criação do Império Klingon.",
+							"Thera e suas 4 luas ficam a algumas centenas de parsecs de distância de Babooine. No reino de",
+							"Cattleland, algumas pessoas ainda acreditam que o planeta é plano e em outras teorias",
+							"conspiratórias, como a de que o novo vírus zumbi desconhecido ser criação do Império Klingdon.",
 							"Well... convenhamos, uma coisa não tem nada a ver com a outra meus amigos!",
 							"",
 							"E também do fato ou fake que o rei mitológico Jeziahs é da linhagem sombria da força! Sera?",
 							"Lord Jeziahs e seus fiéis súditos parecem viver em um outro mundo, onde tudo está em perfeita harmonia",
 							"e que a ameaça do vírus está sob controle, afinal eles tem em mãos a cura para toda a galáxia:",
-							"a poderosa placeboK1na. Mas, a poderosa Federação Galática tem fortes evidências científicas que",
-							"a mesma é responsável em matar seletivamente algumas pessoas pois, contém nano robôs de IA.",
+							"a poderosa placeb0K1na. Caso não tome você corre o risco de virar Dhanos, King G. Roll ou até o Browser!",
+							"",
+							"Mas, a poderosa Federação Galática da Saúde tem fortes evidências científicas que a mesma é", 
+							"responsável em matar seletivamente alguns seres pois, é fabricado com nano robôs dotados IA.",
 							"",
 							"Chega de spoilers... Para falar a verdade, poucos irão ler até aqui. Se você chegou até esse ponto",
-							"meus sinceros agradecimentos ;). Enfim, esse é o cenário atual que vive nosso herói.",
+							"meus sinceros agradecimentos ;). Você é um guerreiro. Enfim, esse é o cenário atual que vive nosso herói.",
+							"",
 							nomeGamer + ", essa missão caso aceite-a, você decidirá o que é fato ou fake e o destino dele e ",
 							"de todos os habitantes da galáxia desse reino não tão tão distante!",
 							"",
@@ -183,20 +217,21 @@ public class FiapLivroJogo {
 							"",
 							"Alerta: Essa é uma obra de ficção. E qualquer personagem, lugar, acontecimentos citados aqui não",
 							"foram baseados em fatos reais! Esse jogo NÃO faz referências a nenhum filme. É pura ficção... científica!",
-							"Para uma melhor experiência gere o .jar e execute-o na linha de comando"
+							"Para uma melhor experiência gere o .jar e execute-o na linha de comando."
 		};
 		
-		System.out.println(intro);
+	
+		imprimeCaracter(intro, 15);
 		System.out.println("");
 		
-		pausaMiliSegundos(2000);
+		pausaMiliSegundos(1000);
 		
-		System.out.println(titulo.toUpperCase());
+		imprimeCaracter(titulo,20);
 		System.out.println("");
 		
-		pausaMiliSegundos(2000);
+		pausaMiliSegundos(1000);
 		
-		imprimeTexto(resumo);
+		imprimeCaracter(resumo, 20);
 		
 		pausaMiliSegundos(3000);
 		rolarTela(10, 300);
@@ -205,5 +240,47 @@ public class FiapLivroJogo {
 		rolarTela(15, 300);
 		pausaMiliSegundos(1000);
 
+	}
+	
+	private static void cenaKlingdonSentarJunto() {
+
+		int resposta;
+		
+		String[] enredo = {
+				"Nosso herói está a bordo do intergalático cruzador MK70xx fazendo reparos no hiper                           ",
+				"computador quântico PulsarVx, quando pela janelinha avista o 'planetinha azul' e imagina                     ",
+				"quando retornará para casa.                                                                                  ",
+				"                                                                                                             ",
+				"Mario está há 3 meses no espaço indo de planeta a´planeta e de nave a nave para fazer a                      ",
+				"manutenção de uma lista enorme de equipamentos e conta na sua equipe com seres de vários                     ",
+				"locais distantes da galáxia, além de alguns droides.                                                         ",
+				"                                                                                                             ",
+				"Na pausa do almoço, dois colegas Klingdons se aproximam da mesa e pergunta se os lugares                     ",
+				"estão vagos. Diz as más linguas que a doença zumbi se originou no planeta deles e foi                        ",
+				"fabricando por algum cientista.                                                                              ",
+				"Porém até o momento poucas pessoas ficaram doentes. O que você aconselharia?                                 ",
+				"  ",
+				"1 - Os lugares estão ocupados.                                                                               ",
+				"2 - Sim, está livre.                                                                                         ",
+				"  "
+		};
+		
+		imprimeTexto(enredo);
+		System.out.print("Digite a sua resposta: ");
+		resposta = leitor.nextInt();
+
+		System.out.println("");
+		
+		switch(resposta) {
+		case 1:
+			
+			System.out.println("Mário pensou dessa maneira por que em breve retornará pra casa. Sua preocupação é com sua familia.  ");
+			System.out.println("Ele não agiu de maneira grosseira, apenas se preveniu.");
+			break;
+		case 2:
+			System.out.println("Para Mario isso não seria nenhum problema visto que não há o que se preocupar. É só uma gripezinha. ");
+			break;
+		}
+		
 	}
 }
