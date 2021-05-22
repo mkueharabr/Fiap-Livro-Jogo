@@ -17,14 +17,14 @@ public class FiapLivroJogo {
 	private static String nomeGamer;
 	private static final int idadeMinimaGamer = 16;
 	private static boolean continuaSaga = true;
-	private static final int larguraTela = 100;
+	private static final int larguraTela = 120;
 	
 	private static final String strEspaco     = " | ";
 	private static final String strTentativas = " + ";
 	private static final String strCapitulo   = " |-> ";
 	private static final String strResposta   = " |   |-> ";
 	private static final String strStatusJogo = " *--~~~=:>[XXXXXXXXX]> ";
-	private static int contaTentativas;
+	private static int contaTentativas = 0;
 	
 	private static ArrayList<String> caminho = new ArrayList<String>();
 	
@@ -35,7 +35,7 @@ public class FiapLivroJogo {
 			"MARIO NUMA GALÁXIA NÃO TÃO TÃO DISTANTE COMBATENDO O VIRUS ZUMBI",
 			"Capítulo 01 - Longe de casa, longe de tudo",
 			"Capítulo 02 - Os 'amáveis Klingdons' e sua bebiba super batizada",
-			"Capítulo 03 - Houston, we have a problem"
+			"Capítulo 03 - Houston, we have a problem!"
 	};
  	
 	public enum StatusJogo {
@@ -80,11 +80,12 @@ public class FiapLivroJogo {
 			abertura();
 			
 			while(continuaSaga) {
-				statusAtual = StatusJogo.VIVO;
 				contaTentativas ++;
 				
 				caminho.add(strEspaco);
 				caminho.add(strTentativas + "Aventura # " + contaTentativas);
+				
+				statusAtual = StatusJogo.VIVO;
 				
 				switch(resposta.toUpperCase()) {
 				case "1":
@@ -100,16 +101,17 @@ public class FiapLivroJogo {
 						cenaMarioUti();
 					}
 					
+					break;
 					
 				default:
 					System.out.println("Escolha uma opção válida!");
+					statusAtual = StatusJogo.WAIT;
 				}
 				
-	
 				rolarTela(5,0);
-				
+
 				imprimeListaCaminho(caminho);
-				
+
 				System.out.println("Você gostaria de continuar e conhecer outras possibilidades?");
 				System.out.println("");
 				System.out.println("N - Não. Vou parar por aqui.");
@@ -118,12 +120,13 @@ public class FiapLivroJogo {
 				System.out.println("");
 				System.out.print("Digite a sua opção: ");
 				resposta = leitor.next();		
-				
+
 				if (resposta.equalsIgnoreCase("N")) {
 					continuaSaga = false;
 				} else {
 					continuaSaga = true;
 				}
+
 			}
 			
 		} else {
@@ -131,7 +134,6 @@ public class FiapLivroJogo {
 			rolarTela(10,10);
 			
 			imprimeListaCaminho(caminho);
-			
 			
 		}
 
@@ -174,7 +176,7 @@ public class FiapLivroJogo {
 			limpaTela();
 			
 			aviso = "Olá " + nomeGamer + ". Infelizmente esse jogo não é recomendado para menores de " + 
-					idadeMinimaGamer + " anos.";
+					idadeMinimaGamer + " anos terrestres.";
 			
 			caminho.add(strCapitulo + aviso);
 			statusAtual = StatusJogo.BLOQUEADO;
@@ -220,34 +222,35 @@ public class FiapLivroJogo {
 		
 		String[] titulo = {"MARIO NUMA GALÁXIA NÃO TÃO TÃO DISTANTE COMBATENDO O VIRUS ZUMBI"};
 		
-		String [] resumo = {"Mario, o nosso herói, é um engenheiro encanador quântico que vive num planeta azul",
-							"conhecido com Thera, onde mora com a família e pets num reino chamado Cattleland.",
+		//                   12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
+		String [] resumo = {"Mario, o nosso herói, é um engenheiro encanador quântico que vive num planeta azul conhecido com Thera, onde "
+				          + "mora com a família e pets num reino chamado Cattleland.",
 							"",
-							"Thera e suas 4 luas ficam a algumas centenas de parsecs de distância de Babooine. No reino de",
-							"Cattleland, algumas pessoas ainda acreditam que o planeta é plano e em outras teorias",
-							"conspiratórias, como a de que o novo vírus zumbi desconhecido ser criação do Império Klingdon.",
+							"Thera e suas 4 luas ficam a algumas centenas de parsecs de distância de Babooine. No reino de Cattleland, "
+						  + "algumas pessoas ainda acreditam que o planeta é plano e em outras teorias conspiratórias, como a de que o novo"
+						  + " vírus zumbi desconhecido ser criação do Império Klingdon.",
 							"Well... convenhamos, uma coisa não tem nada a ver com a outra meus amigos!",
 							"",
-							"E também do fato ou fake que o rei mitológico Jezziahs é da linhagem sombria da força! Sera?",
-							"Lord Jezziahs e seus fiéis súditos parecem viver em um outro mundo, onde tudo está em perfeita harmonia",
-							"e que a ameaça do vírus está sob controle, afinal eles tem em mãos a cura para toda a galáxia:",
-							"a poderosa placeb0K1na. Caso não tome você corre o risco de virar Dhanos, King G. Roll ou até o Browser!",
+							"E também do fato ou fake que o rei mitológico Jezziahs é da linhagem sombria da força! Sera? Lord Jezziahs e "
+						  + "seus fiéis súditos parecem viver em um outro mundo, onde tudo está em perfeita harmonia e que a ameaça do "
+						  + "vírus está sob controle, afinal eles tem em mãos a cura para toda a galáxia: a poderosa placeb0K1na. Caso não "
+						  + "tome você corre o risco de virar Dhanos, King G. Roll ou até o Browser!",
 							"",
-							"Mas, a poderosa Federação Galática da Saúde (FGS) tem fortes evidências científicas que esse suposto 'remédio' é", 
-							"responsável em matar seletivamente alguns seres pois, é fabricado com nano robôs dotados de IA.",
+							"Mas, a poderosa Federação Galática da Saúde (FGS) tem fortes evidências científicas que esse suposto 'remédio'"
+						  + "é responsável em matar seletivamente alguns seres pois, é fabricado com nano robôs dotados de IA.",
 							"",
-							"Chega de spoilers... Para falar a verdade, poucos irão ler até aqui. Se você chegou até esse ponto",
-							"meus sinceros agradecimentos ;). Você é um guerreiro. Enfim, esse é o cenário atual que vive nosso herói.",
+							"Chega de spoilers... Para falar a verdade, poucos irão ler até aqui. Se você chegou até esse ponto meus since"
+						  + "ros agradecimentos ;). Você é um guerreiro. Enfim, esse é o cenário atual que vive nosso herói.",
 							"",
-							nomeGamer + ", essa missão caso aceite-a, você decidirá o que é fato ou fake, qual caminho deve ser tomado",
-							"além do destino dele e de todos os habitantes da galáxia e desse reino não tão tão distante!",
+							nomeGamer + ", essa missão caso aceite-a, você decidirá o que é fato ou fake, qual caminho deve ser tomado"
+						 + "além do destino dele e de todos os habitantes da galáxia e desse reino não tão tão distante!",
 							"",
 							nomeGamer + ", se vc for capturado, morto ou virar zumbi, negaremos tudo perante à nação.",
 							"Boa sorte! Bom jogo e que a força... da decisão esteja com vc!",
 							"",
-							"Alerta: Essa é uma obra de ficção. E qualquer personagem, lugar, acontecimentos citados aqui não",
-							"foram baseados em fatos reais! Esse jogo NÃO faz referências a NENHUM filme. É pura ficção... científica!",
-							"Podemos garantir que durante os seus " + idadeGamer + " anos de vida você não viu nada igual.",
+							"Alerta: Essa é uma obra de ficção. E qualquer personagem, lugar, acontecimentos citados aqui não foram baseados "
+						  + "em fatos reais! Esse jogo NÃO faz referências a NENHUM filme. É pura ficção... científica!",
+							"Podemos garantir que durante os seus " + idadeGamer + " anos terrestres de vida você não viu nada igual.",
 							"",
 							"Importante: não existe decisão certa ou errada.",
 							"",
@@ -286,9 +289,9 @@ public class FiapLivroJogo {
 		String titulo;
 		
 		String[] respostaOcupado = {
-				"Mário pensou dessa maneira por que em breve retornará pra casa. Sua preocupação é com sua familia.",
-				"Ele não agiu de maneira grosseira, apenas se preveniu. Mesmo porquê os Klingdons não considera",
-				"esse nobre gesto de guardar lugar para um amigo como uma gentileza ou companherismo.",
+				"Mário pensou dessa maneira por que em breve retornará pra casa. Sua preocupação é com sua familia. Ele não agiu de "
+			  + "maneira grosseira, apenas se preveniu. Mesmo porquê os Klingdons não considera esse nobre gesto de guardar lugar "
+			  + "para um amigo como uma gentileza ou companherismo.",
 				"",
 				"A única coisa que ele pensa agora é em evitar confusão e chegar inteiro em casa."				
 		};
@@ -296,22 +299,22 @@ public class FiapLivroJogo {
 		String[] respostaLivre = {
 				"Para Mario isso não seria nenhum problema visto que não há o que se preocupar. É só uma gripezinha. ",
 				"As últimas notícias mostram que a doença está apenas no início e em alguns planetas específicos.",
-				"Para ele e todos nessa espaçonave isso pode levar anos até chegar nesse quadrante."
+				"Para ele e todos nessa espaçonave isso pode levar anos estelares até chegar nesse quadrante."
 				
 		};
 		
 		String[] enredo = {
-				"Nosso herói está a bordo do intergalático cruzador MK70z_ fazendo reparos no hiper                           ",
-				"computador quântico PulsarVx, quando pela janelinha avista o 'planetinha azul' e imagina                     ",
-				"quando retornará para casa.                                                                                  ",
+//              12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
+
+				"Nosso herói está a bordo do intergalático cruzador MK70z_ fazendo reparos no hiper computador quântico PulsarVx,"
+			  + " quando pela janelinha avista o 'planetinha azul' e imagina quando retornará para casa.",
 				"",
-				"Mario está há 3 meses no espaço indo de planeta em planeta e de nave a nave para fazer a                      ",
-				"manutenção de uma lista enorme de equipamentos e conta na sua equipe com seres de vários                     ",
-				"locais distantes da galáxia, além de alguns droides.                                                         ",
+				"Mario está há 3 meses no espaço indo de planeta em planeta e de nave a nave para fazer a manutenção de uma lista"
+			  + " enorme de equipamentos e conta na sua equipe com seres de vários locais distantes da galáxia, além de alguns "
+			  + "droides.                                                         ",
 				"",
-				"Na pausa do almoço, dois colegas Klingdons se aproximam da mesa e pergunta se os lugares                     ",
-				"estão vagos. Dizem as más linguas que a doença zumbi se originou no planeta deles e foi                        ",
-				"fabricado por algum cientista.                                                                              ",
+				"Na pausa do almoço, dois colegas Klingdons se aproximam da mesa e pergunta se os lugares estão vagos. Dizem as "
+			  + "más linguas que a doença zumbi se originou no planeta deles e foi fabricado por algum cientista local.",
 				"",
 				"Porém até o momento poucas pessoas ficaram doentes. O que você aconselharia?                                 ",
 				"",
@@ -337,15 +340,14 @@ public class FiapLivroJogo {
 		switch(resposta) {
 		case 1:
 			// lugar ocupado
-			imprimeTexto(respostaOcupado, false);
-
+			imprimeCaracter(respostaOcupado, 0);
 			caminho.add(strResposta + "Lugar ocupado na mesa");
 			
 			break;
 			
 		default:
 			// qualquer outra opção, o lugar está livre
-			imprimeTexto(respostaLivre, false);
+			imprimeCaracter(respostaLivre, 0);
 			caminho.add(strResposta + "Lugar vago na mesa");
 			
 		}
@@ -361,20 +363,20 @@ public class FiapLivroJogo {
 		
 		String[] respostaRecusarBebida = {
 			"Ao recusar a bebida, os dois Klingdons partem para cima do Mario. E algo surpreendente acontece.",
-			"Após ser encurralado, Mario subiu na mesa, deu vários pulos e com o punho cerrado socou o teto. Nesse momento,",
-			"ele cresceu um pouco???!! Ficou metalizado e forte como adhamantium. E bastaram alguns golpes para derrubá-los.",
+			"Após ser encurralado, Mario subiu na mesa, deu vários pulos e com o punho cerrado socou o teto. Nesse momento, ele cresceu "
+		  + "um pouco???!! Ficou metalizado e forte como adhamantium. E bastaram alguns golpes para derrubá-los.",
 			"",
-			"Uns escutaram um barulho de moedas caindo. Outros, como os Thoads, juram que o Mario disse algo como 'Pelos poderes", 
-			"de GraceCool, EU TENHO A FORÇA!!!'. A verdade é que, nesses tempos de deepfake memes todo cuidado é pouco.",
+			"Uns escutaram um barulho de moedas caindo. Outros, como os Thoads, juram que o Mario disse algo como 'Pelos poderes de GraceCool, "
+		  + "EU TENHO A FORÇA!!!'. A verdade é que, nesses tempos de deepfake memes todo cuidado é pouco.",
 			"E quem é GraceCool???",
 			"",
 			"No final os dois Klingdons é que foram na enfermaria! Depois desse fato bizarro todos passaram a respeitá-lo.",
-			"Reza a lenda que Mario aprendeu alguns 'truques' quando atendeu a um chamado de uma nave que tinha afundado",
-			"num pântano e viu 'coisas' que um velhinho baixinho e orelhudo ensinava ao seu jovem aprendiz.",
+			"Reza a lenda que Mario aprendeu alguns 'truques' quando atendeu a um chamado de uma nave que tinha afundado num pântano e "
+		  + "viu 'coisas' que um velhinho baixinho e orelhudo ensinava ao seu jovem aprendiz.",
 			"",
-			"Após arrumar vários entupimentos no acelerador de partículas da aeronave, o bom velhinho disse ao",
-			"Mario algo como: 'a força dentro de você eu sinto!'. 'Coitado mal fala português direito', pensou Mario",
-			"sem entender do que se tratava. Não até hoje, após nocatear os dois.",
+			"Após arrumar vários entupimentos no acelerador de partículas da aeronave, o bom velhinho disse ao Mario algo como: 'a força "
+		  + "dentro de você eu sinto!'. 'Coitado mal fala português direito', pensou Mario sem entender do que se tratava. Não até hoje, "
+		  + "após nocatear os dois.",
 			""
 		};
 		
@@ -383,43 +385,42 @@ public class FiapLivroJogo {
 				"Como ele não recusou da primeira vez, todos os dias os Klingdons enche o caneco do nosso amigo.",
 				"Porém, alguns dias depois, um dos Klingdons adoece e vira zumbi. O outro morre dias depois.",
 				"",
-				"O sistema de AI rastreou todos que tiveram contato, deixando-os em quarentena. Sim, eles vivem num mundo",
-				"onde nanarobôs são implantados dentro de você. Te monitoram 24x7, como diriam em Thera.",
+				"O sistema de AI rastreou todos que tiveram contato, deixando-os em quarentena. Sim, eles vivem num mundo onde nanarobôs "
+			  + "são implantados dentro de você. Te monitoram 24x7, como diriam em Thera.",
 				"",
-				"But now.. Houston, we have a problem."				
+				"But now.. Houston, we have a problem!"				
 		};
 		
 		String[] respostaDerrubarBebida = {
 				"Ahhhh o 'velho truque' do esbarrão do cotovelo na bebida batizada do inimigo! Elementar meu caro... Mario!",
-				"Maaaasss, um deles fica furioso com o descuido e desperdício e só não partiu para briga por que na semana passada",
-				"ele foi salvo pelo nosso engenheiro encanador. Afinal de contas, a adega mais próxima fica a anos-luz de distância!",
+				"Maaaasss, um deles fica furioso com o descuido e desperdício e só não partiu para briga por que na semana passada ele foi salvo "
+			  + "pelo nosso engenheiro encanador. Afinal de contas, a adega mais próxima fica a anos-luz de distância!",
 				"",
-				"Salvar a pele deles é um dos poucos motivos para que eles não te matem. Afinal são guerreiros. E existe uma espécie",
-				"de código de honra. Entretanto, não espere que isso dure para sempre. A sua próxima pisada na bola pode ser fatal.",
+				"Salvar a pele deles é um dos poucos motivos para que eles não te matem. Afinal são guerreiros. E existe uma espécie de código de "
+			  + "honra. Entretanto, não espere que isso dure para sempre. A sua próxima pisada na bola pode ser fatal.",
 				"",
 				"Dessa forma, não diria que Mario ganhou uma vida extra. Acredito mais em algumas barras de energia.",
 				""
 		};
 		
 		String[] enredo = {
-				"Na verdade os Klingdons perguntaram por sarcasmo. Eles não tem modos e independentemente da",
-				"resposta eles iriam sentar do mesmo jeito. O problema é que eles falam gritando, gesticulam",
-				"muito, batem na mesa e salivam muito. E se deixar, pegam a sua comida e bebida ou oferece",
-				"a bebida Abhysmum altamente alcoólica e perigosa para os humanos.",
-				"Essa é pior do que a BuracoNegro dos piratas espacias do C@rybeean ou a darkSideSith Black Vhader",
-				"Label Edition do Império. Não é da novela das 9 que estamos falando aqui...",
+				"Na verdade os Klingdons perguntaram por sarcasmo. Eles não tem modos e independentemente da resposta eles iriam sentar"
+			  + " do mesmo jeito. O problema é que eles falam gritando, gesticulam muito, batem na mesa e salivam muito. E se deixar, "
+			  + "pegam a sua comida e bebida ou oferece a bebida Abhysmum altamente alcoólica e perigosa para os humanos.",
+				"Essa é pior do que a BuracoNegro dos piratas espacias do C@rybeean ou a darkSideSith Black Vhader Label Edition do "
+			  + "Império. Não, não é da novela das 9 que estamos falando aqui...",
 				"",
-				"E claro, encheram o copo do nosso amigo. O último que se recusou ou reclamou foi parar na",
-				"enfermaria e outros, como costumavam dizer, a sete palmos debaixo da terra. Recusá-la é altamente",
-				"ofensivo para eles. Vai entender, né? O que não é ofensivo para esses animais?",
+				"E claro, encheram o copo do nosso amigo. O último que se recusou ou reclamou foi parar na enfermaria e outros, como "
+			  + "costumavam dizer, a sete palmos debaixo da terra. Recusá-la é altamente ofensivo para eles. Vai entender, né? O que "
+			  + "não é ofensivo para esses animais?",
 				"",
-				"Na TV holográfica está passando notícias mais recentes dizendo que o planeta Klingdon a coisa",
-				"está cada vez mais séria. A suspeita é que um animal doente encontrado morto é o vetor zero.",
+				"Na TV holográfica está passando notícias mais recentes dizendo que o planeta Klingdon a coisa está cada vez mais séria. "
+			  + "A suspeita é que um animal doente encontrado morto é o vetor zero.",
 				"Mas, o detalhe é que ele se alimenta de uma fruta que é a base dessa maldita bebida.",
 				"",
-				"Mario sabe disso por que no ano passado foi arrumar o computador quântico responsável pela colheita e",
-				"produção da bebida. E lá não existe controle de qualidade. Frutas comidas e podres fazem parte da",
-				"composição da bebida! Nosso amigo pensou que era um bug do IA.",
+				"Mario sabe disso por que no ano estelar passado foi arrumar o computador quântico responsável pela colheita e produção da bebida. "
+			  + "E lá não existe controle de qualidade. Frutas comidas e podres fazem parte da composição da bebida! Nosso amigo pensou "
+			  + "que era um bug do IA.",
 				"",
 				"Um dos Klingdons propõe um brinde. Sabendo disso o que Mario deveria fazer?",
 				"",
@@ -445,7 +446,7 @@ public class FiapLivroJogo {
 		switch(resposta) {
 		case 1:
 			// recusar a bebida
-			imprimeTexto(respostaRecusarBebida, false);
+			imprimeCaracter(respostaRecusarBebida, 0);
 			
 			continuaSaga = true;
 			
@@ -454,7 +455,7 @@ public class FiapLivroJogo {
 			break;
 		case 2:
 			// beber
-			imprimeTexto(respostaBeber, false);
+			imprimeCaracter(respostaBeber, 0);
 
 			statusAtual = StatusJogo.DOENTE;
 			
@@ -465,7 +466,7 @@ public class FiapLivroJogo {
 
 		default:
 			// qualquer outra opção, derrubar a bebida
-			imprimeTexto(respostaDerrubarBebida, false);
+			imprimeCaracter(respostaDerrubarBebida, 0);
 
 			continuaSaga = true;
 			
@@ -486,53 +487,57 @@ public class FiapLivroJogo {
 		String titulo = capitulo[3];
 		
 		String[] respostaOrgao = {
-				"Péssimas notícias. O plano do nosso humilde trabalhador não cobre cirurgias intergaláticas em distâncias maiores que 10 parsecs",
-				"e está limitado ao transplante de apenas 1 órgão artificial. Ele precisaria de 2, pelo menos.",
-				"Além disso, os órgãos estão em falta devido à um esquema de corrupção onde se está desviando uma grande quantidade de b1tM0edas,",
-				"e ultimamente só pessoas ricas que conseguem. E esse, infelizmente não é o caso do nosso honesto engenheiro encanador.",
+				"Péssimas notícias. O plano do nosso humilde trabalhador não cobre cirurgias intergaláticas em distâncias maiores que 10 parsecs e "
+			  + "está limitado ao transplante de apenas 1 órgão artificial. Ele precisaria de 2, pelo menos.",
+				"Além disso, os órgãos estão em falta devido à um esquema de corrupção onde se está desviando uma grande quantidade de b1tM0edas, e "
+			  + "ultimamente só pessoas ricas que conseguem. E esse, infelizmente não é o caso do nosso honesto engenheiro encanador.",
 				"",
-				"A esperança agora é que o diagnóstico seja o vírus. Ao chegar o resultado foi constado que a bebida tinha atacado o fígado, rins,",
-				"coração e outros órgãos.",
+				"A esperança agora é que o diagnóstico seja o vírus. Ao chegar o resultado foi constado que a bebida tinha atacado o fígado, rins, "
+			  + "coração e outros órgãos.",
 				"",
 				"Em poucas horas seu corpo se definha e não resiste. Nosso amigo vira mais uma estrelinha no universo. RIP my friend."
 		};
 		
 		String[] respostaTratamentoPrecoce = {
-				"Mario é contra ao tratamento precoce, cujo remédio tem como garoto propaganda o Lorde Jezziahs. Para Mario, é a mesma coisa que beber",
-				"água artificial ou um suco de frutas do planeta de seu amigo Jabá da pizzaria The Hut. Sem efeito nenhum. Em Thera alguns são curados sem fazer",
-				"nada. A maioria tem sintomas leves. Mas, os dois Klingdons foram tratados com placeb0K1na e não tiveram sorte.",
+				"Mario é contra ao tratamento precoce, cujo remédio tem como garoto propaganda o Lorde Jezziahs. Para Mario, é a mesma coisa que "
+			  + "beber água artificial ou um suco de frutas do planeta de seu amigo Jabá da pizzaria The Hut. Sem efeito nenhum. Em Thera alguns "
+			  + "são curados sem fazer nada. A maioria tem sintomas leves. Mas, os dois Klingdons foram tratados com placeb0K1na e não tiveram sorte.",
 				"",
-				"Como não é um remédio adotado pelos membros da Federação é necessário esperar alguns dias para ser entregue pela Amazonas. Até lá o paciente",
-				"será mantido na UTI e que para sorte do nosso amigo, pelo menos o plano médico cobre.",
+				"Como não é um remédio adotado pelos membros da Federação é necessário esperar alguns dias para ser entregue pela Amazonas. Até lá "
+			  + "o paciente será mantido na UTI e que para sorte do nosso amigo, pelo menos o plano médico cobre.",
 				"",
-				"Por sorte o problema era o vírus. O remédio o curou? Na verdade a encomenda do Amazonas nunca chegou. A nave robô foi interceptada pelos piratas",
-				"espacias do planeta C@rybeean"
+				"Por sorte o problema era o vírus. O remédio o curou? Na verdade a encomenda do Amazonas nunca chegou. A nave robô foi interceptada "
+			  + "pelos piratas espacias do planeta C@rybeean."
 		};
 		
 		String[] respostaNaoFazNada = {
-				"Resposta corajosa. Na verdade os médicos sabem que provavelmente nosso amigo não sobreviverá por muito tempo. Que o plano de saúde",
-				"do paciente não é top das galáxias. Fora o fato que nenhum dos médicos é de Thera. Dizem alguns que o importante para eles é desocupar",
-				"o leito para dar vaga a outros com mais chance e planos melhores. Bu$ine$$ é a palavra.",
+				"Resposta corajosa. Na verdade os médicos sabem que provavelmente nosso amigo não sobreviverá por muito tempo. Que o plano de saúde "
+			  + "do paciente não é top das galáxias. Fora o fato que nenhum dos médicos é de Thera. Dizem alguns que o importante para eles é desocupar "
+			  + "o leito para dar vaga a outros com mais chance e planos melhores. Bu$ine$$ é a palavra.",
 				"",
 				"Mas a UTI é aceita e paga bem. Então, por enquanto os médicos irão mantê-lo sob observação e com soro a base de DNA do paciente.",
 				"",
-				"Por 'sorte' o problema era o vírus. Muitos em Thera têm sintomas leves. E outros, como no caso de Mario, é mais sério. Mas a chance de",
-				"recuperação com a medicina avançada de agora é de cerca de 70%. Isso os médicos não sabiam."		
+				"Por 'sorte' o problema era o vírus. Muitos em Thera têm sintomas leves. E outros, como no caso de Mario, é mais sério. Mas a chance de "
+			  + "recuperação com a medicina avançada de agora é de cerca de 70%. Isso os médicos não sabiam.",
+				"",
+				"Você pagou para ver! Sorte que Mario é um verdadeiro guerreiro e resistiu bravamente. Porém a sua recuperação será demorada. Esse foi"
+			  + " o passaporte de volta pra casa! Com essas condições físicas, sem chance de se aventurar."
+				
 		};
 		
 		String[] enredo = {
 				"Durante a quarentena, Mario ficou muito doente. Os Klingdons têm costume de beber na garrafa mesmo e dividir com os outros.",
-				"E agora nosso amigo tenta resistir bravamente na UTI onde se encontra sedado e inconsciente. Esse procedimento é totalmente normal",
-				"e visa preservar todos os sinais vitais do paciente. Seu corpo é totalmente escaneado para identificar o problema.",
+				"E agora nosso amigo tenta resistir bravamente na UTI onde se encontra sedado e inconsciente. Esse procedimento é totalmente "
+			  + "normal e visa preservar todos os sinais vitais do paciente. Seu corpo é totalmente escaneado para identificar o problema.",
 				"",
-				"Os médicos estão em dúvida se o estado do paciente é por conta da bebida Abhysmum, que é altamente tóxicas ao humanos se consumida",
-				"por um algum tempo e acabam com o fígado e outros órgãos ou se é por causa do vírus. Como a doença é recente, os médicos ainda não",
-				"conhecem todos os sintomas que afetam o povo de Thera. E nenhum deles é de lá.",
+				"Os médicos estão em dúvida se o estado do paciente é por conta da bebida Abhysmum, que é altamente tóxicas ao humanos se consumida"
+			  + "por um algum tempo e acabam com o fígado e outros órgãos ou se é por causa do vírus. Como a doença é recente, os médicos ainda não "
+			  + "conhecem todos os sintomas que afetam o povo de Thera. E nenhum deles é de lá.",
 				"",
 				"As próximas horas serão cruciais para a sobrevivência do nosso amigo.",
 				"",
-				"Sabendo do histórico anterior dos Klingdons e antes do diagnóstico estar pronto e o plano de saúde autorizar os próximos",
-				"procedimentos, os médicos dão as seguintes opções de tratamento:",
+				"Sabendo do histórico anterior dos Klingdons e antes do diagnóstico estar pronto e o plano de saúde autorizar os próximos procedimentos, "
+			  + "os médicos dão as seguintes opções de tratamento:",
 				"",
 				"1 - Se for considerar a bebida, transplantar órgãos artificiais antes que comecem a falhar.",
 				"2 - Se for o vírus, como Mario é de Thera, os médicos devem seguir o protocolo de lá e aconselham o tratamento precoce a base de placeb0K1na",
@@ -556,16 +561,16 @@ public class FiapLivroJogo {
 		
 		switch(resposta) {
 		case 1:
-			imprimeTexto(respostaOrgao, false);
+			imprimeCaracter(respostaOrgao, 0);
 
 			continuaSaga = false;
 			statusAtual = StatusJogo.MORTO;
 			
-			caminho.add(strResposta + "Oh no! A bebida Abhysmum mata nosso amigo. O plano médico não cobria transplantes e cirurgias intergalática.");
+			caminho.add(strResposta + "Oh no! A bebida Abhysmum matou nosso amigo. O plano médico não cobria transplantes e cirurgias intergalática.");
 			break;
 			
 		case 2:
-			imprimeTexto(respostaTratamentoPrecoce, false);
+			imprimeCaracter(respostaTratamentoPrecoce, 0);
 
 			continuaSaga = true;
 			
@@ -573,11 +578,11 @@ public class FiapLivroJogo {
 			break;
 			
 		default:
-			imprimeTexto(respostaNaoFazNada, false);
+			imprimeCaracter(respostaNaoFazNada, 0);
 
 			continuaSaga = true;
 			
-			caminho.add(strResposta + "Esse é guerreiro! Não contavam com a astúcia dele. Resistiu bravamente.");
+			caminho.add(strResposta + "Você pagou pra ver. Mas, Mario é guerreiro! Não contavam com a astúcia dele. Resistiu bravamente.");
 			break;
 		}
 		
@@ -668,19 +673,29 @@ public class FiapLivroJogo {
 				System.out.println(linha);
 			}
 				
-			
 		}
 	}
 	
 	private static void imprimeCaracter(String[] texto, int velocidade) {
+		int contaCaracteres = 0;
+		
 		for (String linha : texto) {
 			if (linha == "") {
 				System.out.println("");
 				pausaMiliSegundos(velocidade * 20);
 			} else {
+				contaCaracteres = 0;
 				for(int i = 0; i < linha.length();i++) {
 					char caracter = linha.charAt(i);
+					contaCaracteres ++;
+					
+					if(contaCaracteres > larguraTela) {
+						System.out.println("");
+						contaCaracteres = 1;
+					} 
+					
 					System.out.print(caracter);
+
 					pausaMiliSegundos(velocidade);
 				}
 				System.out.println("");
@@ -701,7 +716,7 @@ public class FiapLivroJogo {
 	
 	private static void imprimeListaCaminho(ArrayList<String> historico) {
 		// acrescenta o status no jogo
-		System.out.println(nomeGamer + " sua saga na aventura # " + contaTentativas + " chegou a um final. Seu status no jogo foi: ");
+		System.out.println(nomeGamer + " sua saga na aventura # " + contaTentativas + " chegou a um final. Seu status no jogo foi: " + statusAtual.getDescricao());
 		mostraAsciiStatus(statusAtual);
 		
 		// mostra o histórico de escolhas
@@ -721,6 +736,7 @@ public class FiapLivroJogo {
 		}
 		
 		System.out.println("");
+		pausaMiliSegundos(3000);
 	}
 
 
