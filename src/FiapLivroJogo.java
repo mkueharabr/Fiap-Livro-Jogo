@@ -55,6 +55,7 @@ public class FiapLivroJogo {
 		statusAtual = StatusJogo.VIVO;
 		String resposta;
 		
+		System.out.println("\\");
 		continuaSaga = apresentacao();
 		
 		if (continuaSaga) {
@@ -62,9 +63,12 @@ public class FiapLivroJogo {
 			abertura();
 			
 			while(continuaSaga) {
+				statusAtual = StatusJogo.VIVO;
 				contaTentativas ++;
+				
 				caminho.add(strEspaco);
 				caminho.add(strTentativas + "Aventura # " + contaTentativas);
+				
 				limpaTela();	
 				cenaKlingdonSentarJunto();
 				
@@ -79,7 +83,7 @@ public class FiapLivroJogo {
 				imprimeListaCaminho(caminho);
 				
 				System.out.println("Você gostaria de continuar e conhecer outras possibilidades?");
-				System.out.println("Digite (S - Sim, N - Não): ");
+				System.out.print("Digite (S - Sim, N - Não): ");
 				resposta = leitor.next();		
 				
 				if (resposta.equalsIgnoreCase("N")) {
@@ -104,8 +108,35 @@ public class FiapLivroJogo {
 	}
 	
 	
+	private static void mostraAsciiStatus(StatusJogo status) {
+		
+		switch(status) {
+		case VIVO :
+			imprimeTexto(statusVivoAscii(), true);
+			break;
+			
+		case MORTO:
+			imprimeTexto(statusMortoAscii(), true);
+			break;
+			
+		case ZUMBI:
+			imprimeTexto(statusZumbiAscii(), true);
+			break;
+		
+		case SENSIVEL:
+			imprimeTexto(statusNervosoAscii(), true);
+			break;
+			
+		case BLOQUEADO:
+			imprimeTexto(statusBloqueadoAscii(), true);
+			break;
+			
+		default:
+			imprimeTexto(statusAlertAscii(), true);
+		}
+	}
 	
-	
+
 	private static void pausaEntreTelas() {
 		String resposta;
 		
@@ -182,6 +213,9 @@ public class FiapLivroJogo {
 	
 	private static void imprimeListaCaminho(ArrayList<String> historico) {
 		// acrescenta o status no jogo
+		
+		mostraAsciiStatus(statusAtual);
+		
 		historico.add(strEspaco);
 		historico.add(strCapitulo + "* Seu status final no jogo: " + statusAtual.getDescricao());
 		
@@ -203,7 +237,132 @@ public class FiapLivroJogo {
 	 ******************************************************************************************
 	 */
 	
-	private static String[] stop() {
+	private static String[] statusVivoAscii() {
+		String[] statusVivo = {
+				"──────────────████████──██████──",
+				"──────────████▓▓▓▓▓▓████░░░░░░██",
+				"────────██▓▓▓▓▓▓▓▓▓▓▓▓██░░░░░░██",
+				"──────██▓▓▓▓▓▓████████████░░░░██",
+				"────██▓▓▓▓▓▓████████████████░░██",
+				"────██▓▓████░░░░░░░░░░░░██████──",
+				"──████████░░░░░░██░░██░░██▓▓▓▓██",
+				"──██░░████░░░░░░██░░██░░██▓▓▓▓██",
+				"██░░░░██████░░░░░░░░░░░░░░██▓▓██",
+				"██░░░░░░██░░░░██░░░░░░░░░░██▓▓██",
+				"──██░░░░░░░░████████░░░░██████──",
+				"────████░░░░░░░░██████████▓▓██──",
+				"──────██████░░░░░░░░░░██▓▓▓▓██──",
+				"──░░██▓▓▓▓██████████████▓▓██────",
+				"──██▓▓▓▓▓▓▓▓████░░░░░░████──────",
+				"████▓▓▓▓▓▓▓▓██░░░░░░░░░░██──────",
+				"████▓▓▓▓▓▓▓▓██░░░░░░░░░░██──────",
+				"██████▓▓▓▓▓▓▓▓██░░░░░░████████──",
+				"──██████▓▓▓▓▓▓████████████████──",
+				"────██████████████████████▓▓▓▓██",
+				"──██▓▓▓▓████████████████▓▓▓▓▓▓██",
+				"████▓▓██████████████████▓▓▓▓▓▓██",
+				"██▓▓▓▓██████████████████▓▓▓▓▓▓██",
+				"██▓▓▓▓██████████──────██▓▓▓▓████",
+				"██▓▓▓▓████──────────────██████──",
+				"──████──────────────────────────",
+				""
+		};
+		
+		return statusVivo;
+	}
+	
+	
+	private static String[] statusZumbiAscii() {
+		String[] statusZumbi = {
+				"                    .....            ",
+				"                   C C  /            ",
+				"                  /<   /             ",
+				"   ___ __________/_#__=o             ",
+				"  /(- /(\\_\\________   \\              ",
+				"  \\ ) \\ )_      \\o     \\             ",
+				"  /|\\ /|\\       |'     |             ",
+				"                |     _|             ",
+				"                /o   __\\             ",
+				"               / '     |             ",
+				"              / /      |             ",
+				"             /_/\\______|             ",
+				"            (   _(    <              ",
+				"             \\    \\    \\             ",
+				"              \\    \\    |            ",
+				"               \\____\\____\\           ",
+				"               ____\\_\\__\\_\\          ",
+				"             /`   /`     o\\          ",
+				"             |___ |_______|.. . b'ger",
+		};
+		
+		return statusZumbi;
+	}
+	
+	
+	private static String[] statusNervosoAscii() {
+		String[] nervoso = {
+				"                            ___                                ",
+				"                    __  _/:::>__                               ",
+				"                   /:/_/::/ _/::>                              ",
+				"                 _/:(/:::\\_/::/                               ",
+				"                _):::::::::::::\\                              ",
+				"              _/::::::::::::::::\\____                         ",
+				"             /      \\:::::::::/      \\                       ",
+				"            |  ::/\\  ::::::::  / \\::   |                     ",
+				"            / ::/  \\  ::::::  /   |:::/                       ",
+				"           /:::|    \\::::::::/    |:::\\                      ",
+				"          /::::|     \\::::::/     |::::\\                     ",
+				"        ,------:      \\::::/      :------,                    ",
+				"       /   ___  \\0    /    \\ 0   / ___  \\                   ",
+				"      : ,-' ) `  `---'      `---'   ( `-,  :                   ",
+				"      \\_    \\         '     `        \\_  _/                 ",
+				"        \\____\\                         \\/                   ",
+				"              \\                  _______\\________            ",
+				"               \\              ,-'                )            ",
+				"                \\           ,-    ,----------- _/             ",
+				"                 \\             ,-'      \\\\ ) _/             ",
+				"                  (___________/__________\\\\ /                ",
+				"                   :;;;\\___________________)                  ",
+				"            ______,:;;;;;;;;:______                            ",
+				"          ,;;;;;;;;;;;;;;;;;;;;;;;;\\_                         ",
+				"         /;;;;;;;;;;;;;;;;;;;;;;;;;;;\\_                       ",
+				"        /;;;;;;__;;;; ;;;;;; ;;;;;;;;;;\\  Targon              ",
+				"                                                               ",
+				" ------------------------------------------------------------- ",
+				" Thank you for visiting https://asciiart.website/",
+				" This ASCII pic can be found at",
+				" https://asciiart.website/index.php?art=cartoons/warner%20bros",
+				""
+		};
+		
+		return nervoso;
+	}
+	
+	private static String[] statusMortoAscii() {
+		String[] statusMorto = {
+				"                                                              ",
+				"        _.---,._,'                                            ",
+				"       /' _.--.<                                              ",
+				"         /'     `'                                            ",
+				"       /' _.---._____                                         ",
+				"       \\.'   ___, .-'`                                        ",
+				"           /'    \\             .                             ",
+				"         /'       `-.          -|-                            ",
+				"        |                       |                             ",
+				"        |                   .-'~~~`-.                         ",
+				"        |                 .'         `.                       ",
+				"        |                 |  R  I  P  |                       ",
+				"  jgs   |                 |           |                       ",
+				"        |                 | M A R I O |                       ",
+				"         \\               \\|           |//                     ",
+				"   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ",
+				""
+		};
+		
+		return statusMorto;
+	}
+	
+	private static String[] statusBloqueadoAscii() {
 		String[] stop = {
 				"",
 				"            uuuuuuuuuuuuuuuuuuuu             ",
@@ -232,6 +391,50 @@ public class FiapLivroJogo {
 		};
 		
 		return stop;
+	}
+	
+	
+	private static String[]	statusAlertAscii() {
+		String[] alert = {
+				"",       
+				"                           .i;;;;i.                           ",       
+				"                         iYcviii;vXY:                         ",       
+				"                       .YXi       .i1c.                       ",       
+				"                      .YC.     .    in7.                      ",       
+				"                     .vc.   ......   ;1c.                     ",       
+				"                     i7,   ..        .;1;                     ",       
+				"                    i7,   .. ...      .Y1i                    ",       
+				"                   ,7v     .6MMM@;     .YX,                   ",       
+				"                  .7;.   ..IMMMMMM1     :t7.                  ",       
+				"                 .;Y.     ;$MMMMMM9.     :tc.                 ",       
+				"                 vY.   .. .nMMM@MMU.      ;1v.                ",       
+				"                i7i   ...  .#MM@M@C. .....:71i                ",       
+				"               it:   ....   $MMM@9;.......,;tti               ",       
+				"              :t7.  .....   0MMMWv.........,;St.              ",       
+				"             .nC.   .....   IMMMQ...........,czX.             ",       
+				"            .ct:   ....... .ZMMMI............:76Y.            ",       
+				"            c2:   ..........Y$M@t.............inZY            ",       
+				"           vov   ...........c$MBc..............iI9i           ",       
+				"          i9Y   ............7@MA,...............;AA:          ",       
+				"         iIS.  .............;@MI.................;Ez.         ",       
+				"        .I9.  ...............8M1..................C0z.        ",       
+				"       .z9;  ............... .i:...................zWX.       ",       
+				"       vbv  ...............      ................. :AQY       ",       
+				"      c6Y.  ..............:t0@@QY. ................ :8bi      ",       
+				"     :6S. ................EMMMMMMI. ............... .;bZ,     ",       
+				"    :6o,  ...............i#MMMMMM#v.................  YW2.    ",       
+				"   .n8i ................. tMMMMM@C:.................. .1Wn    ",       
+				"   7Uc. .:...............   i1t;,..................... .UEi   ",       
+				"   7C...::::::::::::,,,,..        ....................  vSi.  ",       
+				"   ;1;...,,::::::,.........       ..................    Yz:   ",       
+				"    v97,.........                                     .voC.   ",       
+				"     izAotX7777777777777777777777777777777777777777Y7n92:     ",       
+				"       .;CoIIIIIUAA666666699999ZZZZZZZZZZZZZZZZZZZZ6ov.       ",   
+				""
+				
+		};
+		
+		return alert;
 	}
 	
 	private static String[] thera() {
@@ -313,7 +516,7 @@ public class FiapLivroJogo {
 			caminho.add(strCapitulo + aviso);
 			statusAtual = StatusJogo.BLOQUEADO;
 
-			imprimeTexto(stop(), true);
+			imprimeTexto(statusBloqueadoAscii(), true);
 			
 			System.out.println(aviso);
 			System.out.println("Provavelmente véio vc achará esse jogo entendiante demais. Vai jogar PS2! Ops, PS3? PS4? PS5? Enfim...");
@@ -367,8 +570,8 @@ public class FiapLivroJogo {
 							"e que a ameaça do vírus está sob controle, afinal eles tem em mãos a cura para toda a galáxia:",
 							"a poderosa placeb0K1na. Caso não tome você corre o risco de virar Dhanos, King G. Roll ou até o Browser!",
 							"",
-							"Mas, a poderosa Federação Galática da Saúde tem fortes evidências científicas que a mesma é", 
-							"responsável em matar seletivamente alguns seres pois, é fabricado com nano robôs dotados IA.",
+							"Mas, a poderosa Federação Galática da Saúde (FGS) tem fortes evidências científicas que esse suposto 'remédio' é", 
+							"responsável em matar seletivamente alguns seres pois, é fabricado com nano robôs dotados de IA.",
 							"",
 							"Chega de spoilers... Para falar a verdade, poucos irão ler até aqui. Se você chegou até esse ponto",
 							"meus sinceros agradecimentos ;). Você é um guerreiro. Enfim, esse é o cenário atual que vive nosso herói.",
@@ -388,11 +591,11 @@ public class FiapLivroJogo {
 							"Para uma melhor experiência gere o .jar e execute-o na linha de comando."
 		};
 		
-	
-		imprimeCaracter(intro, 5);
-		System.out.println("");
+		rolarTela(15, 0);
+		imprimeTexto(intro, true);
+		pausaMiliSegundos(3000);
 		
-		pausaMiliSegundos(1000);
+		rolarTela(40, 0);
 		
 		imprimeCaracter(titulo,10);
 		System.out.println("");
@@ -492,7 +695,8 @@ public class FiapLivroJogo {
 		
 		String[] respostaRecusarBebida = {
 			"Ao recusar a bebida, os dois Klingdons partem para cima do Mario. E algo surpreendente acontece.",
-			"Segundo relatos ele parece que cresceu ao ser desafiado e ficou metalizado e forte como adhamantium.",
+			"Após ser encurralado ele subiu na mesa, deu vários pular e com o punho cerrado socou o teto. Nesse momento,",
+			"ele cresceu um pouco???!! Ficou metalizado e forte como adhamantium. Bastaram alguns golpes para derrubá-los.",
 			"",
 			"No final os dois Klingdons é que foram na enfermaria! Depois disso todos passaram a respeitá-lo.",
 			"Reza a lenda que Mario aprendeu alguns 'truques' quando atendeu a um chamado de uma nave que tinha afundado",
@@ -509,11 +713,12 @@ public class FiapLivroJogo {
 				"Porém, alguns dias depois, um dos Klingdons adoece e vira zumbi. O outro morre dias depois.",
 				"",
 				"O sistema de AI detectou todos que tiveram contato, deixando-os em quarentena.",
+				"",
 				"Mario morre semanas depois. A autópsia não foi clara se foi devido à doença ou à bebida que afetou o",
 				"fígado e outros órgãos de tal maneira que nem um artificial resolveria.",
 				"",
-				"Outros dizem que, como os órgãos estão em falta devido à um esquema de corrupção onde se desvia uma",
-				"grande quantidade de b1tM0edas, ultimamente só pessoas ricas que conseguem. E esse, infelizmente",
+				"Outros dizem que, como os órgãos estão em falta devido à um esquema de corrupção onde se está desviando",
+				"uma grande quantidade de b1tM0edas, ultimamente só pessoas ricas que conseguem. E esse, infelizmente",
 				"não era o caso do nosso honesto e humilde engenheiro encanador.",
 				""				
 		};
@@ -521,12 +726,12 @@ public class FiapLivroJogo {
 		String[] respostaDerrubarBebida = {
 				"Ahhhh o 'velho truque' do esbarrão do cotovelo na bebida batizada do inimigo! Elementar meu caro... Mario!",
 				"Maaaasss, um deles fica furioso com o descuido e desperdício e só não partiu para briga por que na semana passada",
-				"ele foi salvo pelo nosso engenheiro encanador. Afinal o próximo mercado fica a anos-luz de distância.",
+				"ele foi salvo pelo nosso engenheiro encanador. Afinal de contas, o próximo mercado fica a anos-luz de distância!",
 				"",
-				"Salvar a pele deles é um dos poucos motivos para que eles não te matem. Afinal são guerreiros.",
-				"Entretanto, não espere que isso dure para sempre. A sua próxima pisada na bola pode ser fatal.",
+				"Salvar a pele deles é um dos poucos motivos para que eles não te matem. Afinal são guerreiros. E existe uma espécie",
+				"de código de honra. Entretanto, não espere que isso dure para sempre. A sua próxima pisada na bola pode ser fatal.",
 				"",
-				"Não diria que Mario ganhou um vida extra. Acredito mais em algumas barras de energia.",
+				"Dessa forma, não diria que Mario ganhou uma vida extra. Acredito mais em algumas barras de energia.",
 				""
 		};
 		
@@ -536,19 +741,19 @@ public class FiapLivroJogo {
 				"muito, batem na mesa e salivam muito. E se deixar, pegam a sua comida e bebida ou oferece",
 				"a bebida Abhysmum altamente alcoólica e perigosa para os humanos.",
 				"Essa é pior do que a BuracoNegro dos piratas espacias do Carybeean ou a darkSideSith Black Vhader",
-				"Label Edition do Império.",
+				"Label Edition do Império. Não é da novela das 9 que estamos falando aqui...",
 				"",
 				"E claro, encheram o copo do nosso amigo. O último que se recusou ou reclamou foi parar na",
-				"enfermaria ou como costumavam dizer, a sete palmos debaixo da terra. Recusá-la é altamente",
-				"ofensivo para eles. Vai entender, né?",
+				"enfermaria e outros, como costumavam dizer, a sete palmos debaixo da terra. Recusá-la é altamente",
+				"ofensivo para eles. Vai entender, né? O que não é ofensivo para esses animais?",
 				"",
 				"Na TV holográfica está passando notícias mais recentes dizendo que o planeta Klingdon a coisa",
 				"está cada vez mais séria. A suspeita é que um animal doente encontrado morto é o vetor zero.",
 				"Mas, o detalhe é que ele se alimenta de uma fruta que é a base dessa maldita bebida.",
 				"",
-				"Mario sabe disso por que no ano passado foi arrumar o computador responsável pela colheita e",
-				"produção da bebida. E lá não existe controle de qualidade. Frutos comidos e podres fazem parte",
-				"da composição da bebida!",
+				"Mario sabe disso por que no ano passado foi arrumar o computador quântico responsável pela colheita e",
+				"produção da bebida. E lá não existe controle de qualidade. Frutas comidas e podres fazem parte da",
+				"composição da bebida! Nosso amigo pensou que era um bug do IA.",
 				"",
 				"Um dos Klingdons propõe um brinde. Sabendo disso o que Mario deveria fazer?",
 				"",
