@@ -270,7 +270,7 @@ public class FiapLivroJogo {
 		
 		pausaMiliSegundos(1000);
 		
-		imprimeCaracter(resumo, 15);
+		imprimeQuebra(resumo, 15);
 		
 		pausaMiliSegundos(3000);
 		rolarTela(10, 300);
@@ -311,15 +311,15 @@ public class FiapLivroJogo {
 				"",
 				"Mario está há 3 meses no espaço indo de planeta em planeta e de nave a nave para fazer a manutenção de uma lista"
 			  + " enorme de equipamentos e conta na sua equipe com seres de vários locais distantes da galáxia, além de alguns "
-			  + "droides.                                                         ",
+			  + "droides.",
 				"",
 				"Na pausa do almoço, dois colegas Klingdons se aproximam da mesa e pergunta se os lugares estão vagos. Dizem as "
 			  + "más linguas que a doença zumbi se originou no planeta deles e foi fabricado por algum cientista local.",
 				"",
-				"Porém até o momento poucas pessoas ficaram doentes. O que você aconselharia?                                 ",
+				"Porém até o momento poucas pessoas ficaram doentes. O que você aconselharia?",
 				"",
-				"1 - Os lugares estão ocupados.                                                                               ",
-				"2 - Sim, está livre.                                                                                         "
+				"1 - Os lugares estão ocupados. ",
+				"2 - Sim, está livre.  "
 		};
 		
 		titulo = capitulo[1];
@@ -329,7 +329,7 @@ public class FiapLivroJogo {
 		centralizarTexto(titulo, larguraTela);
 		System.out.println("");
 		
-		imprimeCaracter(enredo, 5);
+		imprimeQuebra(enredo, 5);
 		System.out.println("");
 		
 		System.out.print("Digite a sua resposta: ");
@@ -340,14 +340,14 @@ public class FiapLivroJogo {
 		switch(resposta) {
 		case 1:
 			// lugar ocupado
-			imprimeCaracter(respostaOcupado, 0);
+			imprimeQuebra(respostaOcupado, 0);
 			caminho.add(strResposta + "Lugar ocupado na mesa");
 			
 			break;
 			
 		default:
 			// qualquer outra opção, o lugar está livre
-			imprimeCaracter(respostaLivre, 0);
+			imprimeQuebra(respostaLivre, 0);
 			caminho.add(strResposta + "Lugar vago na mesa");
 			
 		}
@@ -436,7 +436,7 @@ public class FiapLivroJogo {
 		centralizarTexto(titulo, larguraTela);
 		System.out.println("");
 		
-		imprimeCaracter(enredo, 5);
+		imprimeQuebra(enredo, 5);
 		
 		System.out.println("");
 		System.out.print("Digite a sua resposta: ");
@@ -446,7 +446,7 @@ public class FiapLivroJogo {
 		switch(resposta) {
 		case 1:
 			// recusar a bebida
-			imprimeCaracter(respostaRecusarBebida, 0);
+			imprimeQuebra(respostaRecusarBebida, 0);
 			
 			continuaSaga = true;
 			
@@ -455,7 +455,7 @@ public class FiapLivroJogo {
 			break;
 		case 2:
 			// beber
-			imprimeCaracter(respostaBeber, 0);
+			imprimeQuebra(respostaBeber, 0);
 
 			statusAtual = StatusJogo.DOENTE;
 			
@@ -466,7 +466,7 @@ public class FiapLivroJogo {
 
 		default:
 			// qualquer outra opção, derrubar a bebida
-			imprimeCaracter(respostaDerrubarBebida, 0);
+			imprimeQuebra(respostaDerrubarBebida, 0);
 
 			continuaSaga = true;
 			
@@ -552,7 +552,7 @@ public class FiapLivroJogo {
 		centralizarTexto(titulo, larguraTela);
 		System.out.println("");
 		
-		imprimeCaracter(enredo, 5);
+		imprimeQuebra(enredo, 5);
 		
 		System.out.println("");
 		System.out.print("Que decisão você aconselharia aos médicos?");
@@ -561,7 +561,7 @@ public class FiapLivroJogo {
 		
 		switch(resposta) {
 		case 1:
-			imprimeCaracter(respostaOrgao, 0);
+			imprimeQuebra(respostaOrgao, 0);
 
 			continuaSaga = false;
 			statusAtual = StatusJogo.MORTO;
@@ -570,7 +570,7 @@ public class FiapLivroJogo {
 			break;
 			
 		case 2:
-			imprimeCaracter(respostaTratamentoPrecoce, 0);
+			imprimeQuebra(respostaTratamentoPrecoce, 0);
 
 			continuaSaga = true;
 			
@@ -578,7 +578,7 @@ public class FiapLivroJogo {
 			break;
 			
 		default:
-			imprimeCaracter(respostaNaoFazNada, 0);
+			imprimeQuebra(respostaNaoFazNada, 0);
 
 			continuaSaga = true;
 			
@@ -676,33 +676,101 @@ public class FiapLivroJogo {
 		}
 	}
 	
-	private static void imprimeCaracter(String[] texto, int velocidade) {
-		int contaCaracteres = 0;
+	
+	private static void imprimeQuebra(String[] srtTexto, int velocidade) {
+		char charBusca = ' ';
+		String texto;
+		int posicaoInicial = 0;
+		int ultimaOcorrencia = 0;
+		int posicaoAtual = 0;
 		
-		for (String linha : texto) {
-			if (linha == "") {
-				System.out.println("");
-				pausaMiliSegundos(velocidade * 20);
-			} else {
-				contaCaracteres = 0;
-				for(int i = 0; i < linha.length();i++) {
-					char caracter = linha.charAt(i);
-					contaCaracteres ++;
+		for(String linha: srtTexto) {
+			if(linha.length() > 0) {
+				texto = linha;
+				posicaoInicial = 0;
+				ultimaOcorrencia = 0;
+				posicaoAtual = 0;
+				
+				while((linha.length() - posicaoInicial ) > larguraTela) {
+					while((posicaoAtual - posicaoInicial) < larguraTela ) { 
+						ultimaOcorrencia = posicaoAtual; 
+						posicaoAtual = linha.indexOf(charBusca, posicaoAtual + 1); 
+					}
 					
-					if(contaCaracteres > larguraTela) {
-						System.out.println("");
-						contaCaracteres = 1;
-					} 
-					
-					System.out.print(caracter);
+					texto = linha.substring(posicaoInicial, ultimaOcorrencia);
+					imprimeCaracter(texto,10);
 
-					pausaMiliSegundos(velocidade);
+					posicaoAtual = ultimaOcorrencia + 1; 
+					posicaoInicial = ultimaOcorrencia + 1;
+
 				}
+				texto = linha.substring(posicaoInicial);
+				imprimeCaracter(texto,velocidade);
+			} else {
 				System.out.println("");
 			}
+			
+		}
 
-		}		
 	}
+	
+//	private static void imprimeQuebra(String texto, int velocidade) {
+//		int contaCaracteres = 0;
+//		
+//		for (String linha : texto) {
+//			if (linha == "") {
+//				System.out.println("");
+//				pausaMiliSegundos(velocidade * 20);
+//			} else {
+//				contaCaracteres = 0;
+//				for(int i = 0; i < linha.length();i++) {
+//					char caracter = linha.charAt(i);
+//					contaCaracteres ++;
+//					
+//					if(contaCaracteres > larguraTela) {
+//						System.out.println("");
+//						contaCaracteres = 1;
+//					} 
+//					
+//					System.out.print(caracter);
+//
+//					pausaMiliSegundos(velocidade);
+//				}
+//				System.out.println("");
+//			}
+//
+//		}		
+//	}
+	
+	private static void imprimeCaracter(String linha, int velocidade) {
+		int contaCaracteres = 0;
+		
+
+		if (linha == "") {
+			System.out.println("");
+			pausaMiliSegundos(velocidade * 20);
+		} else {
+			contaCaracteres = 0;
+			for(int i = 0; i < linha.length();i++) {
+				char caracter = linha.charAt(i);
+				contaCaracteres ++;
+
+				if(contaCaracteres > larguraTela) {
+					System.out.println("");
+					contaCaracteres = 1;
+				} 
+
+				System.out.print(caracter);
+
+				pausaMiliSegundos(velocidade);
+			}
+			System.out.println("");
+		}
+
+		
+	}
+	
+
 	
 	private static void centralizarTexto(String texto, int tamTela) {
 		int inicioCol = (tamTela - texto.length())/2;
@@ -896,6 +964,8 @@ public class FiapLivroJogo {
 	
 	private static String[] statusBloqueadoAscii() {
 		String[] stop = {
+				"",
+				"Stop in the name of... Federação de Games!",
 				"",
 				"            uuuuuuuuuuuuuuuuuuuu             ",
 				"          u' uuuuuuuuuuuuuuuuuu 'u           ",
