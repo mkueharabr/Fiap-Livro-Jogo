@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -33,9 +34,11 @@ public class FiapLivroJogo {
 	
 	private static String[] capitulo = {
 			"MARIO NUMA GALÁXIA NÃO TÃO TÃO DISTANTE COMBATENDO O VIRUS ZUMBI",
-			"Capítulo 01 - Longe de casa, longe de tudo",
+			"Capítulo 01 - Longe de casa a mais de uma semana solar, parsecs e parsecs distante",
 			"Capítulo 02 - Os 'amáveis Klingdons' e sua bebiba super batizada",
-			"Capítulo 03 - Houston, we have a problem!"
+			"Capítulo 03 - Houston, we have a problem!",
+			"Capítulo 04 - O vírus Zumbi",
+			"Capítulo 05 - Placeb0K1na, placeb0K1na, placeb0k1na de Jezziahs"
 	};
  	
 	public enum StatusJogo {
@@ -58,9 +61,9 @@ public class FiapLivroJogo {
 		}
 	}
 	
+	
 	private static StatusJogo statusAtual;
-	
-	
+
 	public static void main(String[] args) throws InterruptedException, IOException {
 		statusAtual = StatusJogo.VIVO;
 		String resposta = "1";
@@ -100,6 +103,12 @@ public class FiapLivroJogo {
 						limpaTela();
 						cenaMarioUti();
 					}
+					
+					
+				
+				case "4":
+					limpaTela();
+					virusZumbi();
 					
 					break;
 					
@@ -341,14 +350,14 @@ public class FiapLivroJogo {
 		case 1:
 			// lugar ocupado
 			imprimeQuebra(respostaOcupado, 0);
-			caminho.add(strResposta + "Lugar ocupado na mesa");
+			caminho.add(strResposta + "(Op 1) Lugar ocupado na mesa pelo meu amigo imaginário ou invisível");
 			
 			break;
 			
 		default:
 			// qualquer outra opção, o lugar está livre
 			imprimeQuebra(respostaLivre, 0);
-			caminho.add(strResposta + "Lugar vago na mesa");
+			caminho.add(strResposta + "(Op 2) Lugar vago na mesa");
 			
 		}
 		
@@ -362,17 +371,16 @@ public class FiapLivroJogo {
 		String titulo;
 		
 		String[] respostaRecusarBebida = {
-			"Ao recusar a bebida, os dois Klingdons partem para cima do Mario. E algo surpreendente acontece.",
-			"Após ser encurralado, Mario subiu na mesa, deu vários pulos e com o punho cerrado socou o teto. Nesse momento, ele cresceu "
+			"Ao recusar a bebida, os dois Klingdons partem para cima do Mario. E algo surpreendente acontece. Após ser encurralado, Mario "
+		  + "subiu na mesa, deu vários pulos e com o punho cerrado socou o teto. Nesse momento, ele cresceu "
 		  + "um pouco???!! Ficou metalizado e forte como adhamantium. E bastaram alguns golpes para derrubá-los.",
 			"",
 			"Uns escutaram um barulho de moedas caindo. Outros, como os Thoads, juram que o Mario disse algo como 'Pelos poderes de GraceCool, "
-		  + "EU TENHO A FORÇA!!!'. A verdade é que, nesses tempos de deepfake memes todo cuidado é pouco.",
-			"E quem é GraceCool???",
+		  + "EU TENHO A FORÇA!!!'. A verdade é que, nesses tempos de deepfake memes todo cuidado é pouco. E quem é GraceCool???",
 			"",
-			"No final os dois Klingdons é que foram na enfermaria! Depois desse fato bizarro todos passaram a respeitá-lo.",
-			"Reza a lenda que Mario aprendeu alguns 'truques' quando atendeu a um chamado de uma nave que tinha afundado num pântano e "
-		  + "viu 'coisas' que um velhinho baixinho e orelhudo ensinava ao seu jovem aprendiz.",
+			"No final os dois Klingdons é que foram na enfermaria! Depois desse fato bizarro todos passaram a respeitá-lo. Reza a lenda que "
+		  + "Mario aprendeu alguns 'truques' quando atendeu a um chamado de uma nave que tinha afundado num pântano e  viu 'coisas' que um "
+		  + "velhinho baixinho e orelhudo ensinava ao seu jovem aprendiz.",
 			"",
 			"Após arrumar vários entupimentos no acelerador de partículas da aeronave, o bom velhinho disse ao Mario algo como: 'a força "
 		  + "dentro de você eu sinto!'. 'Coitado mal fala português direito', pensou Mario sem entender do que se tratava. Não até hoje, "
@@ -381,8 +389,8 @@ public class FiapLivroJogo {
 		};
 		
 		String[] respostaBeber = {
-				"Você aceitaria a bebida dos Klingdons por educação??? Em épocas como essa é melhor revisar seus conceitos!",
-				"Como ele não recusou da primeira vez, todos os dias os Klingdons enche o caneco do nosso amigo.",
+				"Você aceitaria a bebida dos Klingdons por educação??? Em épocas como essa é melhor revisar seus conceitos! Como ele não recusou"
+			  + " da primeira vez, todos os dias os Klingdons enche o caneco do nosso amigo.",
 				"Porém, alguns dias depois, um dos Klingdons adoece e vira zumbi. O outro morre dias depois.",
 				"",
 				"O sistema de AI rastreou todos que tiveram contato, deixando-os em quarentena. Sim, eles vivem num mundo onde nanarobôs "
@@ -422,6 +430,9 @@ public class FiapLivroJogo {
 			  + "E lá não existe controle de qualidade. Frutas comidas e podres fazem parte da composição da bebida! Nosso amigo pensou "
 			  + "que era um bug do IA.",
 				"",
+				"E muito menos rastreabilidade. Sim, da colheita ao produto final nada é registrado no ClusterChain Book, como em outros planetas da"
+			  + " Federação. Ou você acha que eles cumprem qualquer lei?",
+				"",
 				"Um dos Klingdons propõe um brinde. Sabendo disso o que Mario deveria fazer?",
 				"",
 				"1 - Se recusa a beber. Se for parar na enfermaria pode voltar mais cedo pra casa.",
@@ -450,7 +461,7 @@ public class FiapLivroJogo {
 			
 			continuaSaga = true;
 			
-			caminho.add(strResposta + "Você recusou a bebida dos Klingdons??? Ou você conhece o Mario ou é maluco!");
+			caminho.add(strResposta + "(Op 1) Você recusou a bebida dos Klingdons??? Ou você conhece o Mario ou é maluco!");
 			
 			break;
 		case 2:
@@ -459,7 +470,7 @@ public class FiapLivroJogo {
 
 			statusAtual = StatusJogo.DOENTE;
 			
-			caminho.add(strResposta + "Você aceitou a bebida dos Klingdons por educação??? Em épocas como essa é melhor revisar seus conceitos!");
+			caminho.add(strResposta + "(Op 2) Você aceitou a bebida dos Klingdons por educação??? Em épocas como essa é melhor revisar seus conceitos!");
 			
 			
 			break;
@@ -470,7 +481,7 @@ public class FiapLivroJogo {
 
 			continuaSaga = true;
 			
-			caminho.add(strResposta + "Ahh... o velho truque do cotovelo para derrubar a bebida batizada do inimigo!");
+			caminho.add(strResposta + "(Op 3) Ahh... o velho truque do cotovelo para derrubar a bebida batizada do inimigo!");
 		
 			
 		}
@@ -531,7 +542,7 @@ public class FiapLivroJogo {
 			  + "normal e visa preservar todos os sinais vitais do paciente. Seu corpo é totalmente escaneado para identificar o problema.",
 				"",
 				"Os médicos estão em dúvida se o estado do paciente é por conta da bebida Abhysmum, que é altamente tóxicas ao humanos se consumida"
-			  + "por um algum tempo e acabam com o fígado e outros órgãos ou se é por causa do vírus. Como a doença é recente, os médicos ainda não "
+			  + " por algum tempo e acabam com o fígado e outros órgãos ou se é por causa do vírus. Como a doença é recente, os médicos ainda não "
 			  + "conhecem todos os sintomas que afetam o povo de Thera. E nenhum deles é de lá.",
 				"",
 				"As próximas horas serão cruciais para a sobrevivência do nosso amigo.",
@@ -566,7 +577,7 @@ public class FiapLivroJogo {
 			continuaSaga = false;
 			statusAtual = StatusJogo.MORTO;
 			
-			caminho.add(strResposta + "Oh no! A bebida Abhysmum matou nosso amigo. O plano médico não cobria transplantes e cirurgias intergalática.");
+			caminho.add(strResposta + "(Op 1) Oh no! A bebida Abhysmum matou nosso amigo. O plano médico não cobria transplantes e cirurgias intergalática.");
 			break;
 			
 		case 2:
@@ -574,7 +585,7 @@ public class FiapLivroJogo {
 
 			continuaSaga = true;
 			
-			caminho.add(strResposta + "Nosso amigo foi curado sem placeb0K1na. A nave robô da Amazonas foi sequestrada pelos piratas espaciais do C@rybeean!");
+			caminho.add(strResposta + "(Op 2) Nosso amigo foi curado sem placeb0K1na. A nave robô da Amazonas foi sequestrada pelos piratas espaciais do C@rybeean!");
 			break;
 			
 		default:
@@ -582,7 +593,7 @@ public class FiapLivroJogo {
 
 			continuaSaga = true;
 			
-			caminho.add(strResposta + "Você pagou pra ver. Mas, Mario é guerreiro! Não contavam com a astúcia dele. Resistiu bravamente.");
+			caminho.add(strResposta + "(Op 3) Você pagou pra ver. Mas, Mario é guerreiro! Não contavam com a astúcia dele. Resistiu bravamente.");
 			break;
 		}
 		
@@ -591,7 +602,138 @@ public class FiapLivroJogo {
 
 	}
 
+	private static void virusZumbi() {
+		int resposta;
+		String titulo;
+		
+		Random random = new Random();
+		int geraTotal = random.nextInt(1000000000);
+		
+		
+		titulo = capitulo[4];
+		String[] enredo = {
+				"Com o avanço da ciência e tecnologia durante séculos, muitas áreas foram beneficiadas: entre elas a medicina. Da mesma forma, os seres invisíveis aos"
+			  + " olhos de grande parte do Universo. Com os remédios cada vez mais poderosos, os vírus sobreviventes se tornaram cada vez mais mortais. E"
+			  + " alguns alteram até as estruturas moleculares do hospedeiro, ou DNA no caso dos habitantes de Thera.",
+			  	"",
+			  	"Foram espalhadas fake news que esse novo vírus foi criado num laboratório por cientistas que querem dominar o mundo e inclusive já teriam "
+			  + "a cura pronta! Não importa aonde você mora ou que século estamos. Teorias conspiratórias sem provas sempre existirão.",
+			    "",
+			    "A principal linha de investigação é que a origem é o planeta Klingdon. Mas nada indica que foi fabricada artificialmente, apesar de"
+			  + " ser possivel hoje em dia. Os primeiros caso aconteceram lá e além de se espalhar rapidamente e matar milhares no planeta, alguns casos estão"
+			  + " surgindo nos mais longínquos quadrantes do universo. Resultado das extensas rotas intergaláticas de comércio e exploração de recursos.",
+			    "",
+			    "O que mais assusta é o fato dessa doença se espalhar e infectar as mais distintas raças intergaláticas. Isso nunca tinha acontecido antes. Afinal, cada"
+			    + " raça tem uma composição molecular distinta entre si.",
+			    "",
+			    "Cada um tem uma uma reação diferente. O vírus algumas vezes é mortal. Nos casos mais graves, deixam sequelas onde a pessoa perde a parte motora e cognitiva. E muitas vezes "
+			  + "parece dominada por um hospedeiro. Daí o apelido de zumbi. E nem trocando por um cérebro artificial dotado de AI e ML funcionaria.",
+			     "",
+			     "E o que você acha disso tudo?",
+			     "",
+			     "1 - O vírus foi criado em laboratórios pelos Klingdons.",
+			     "2 - Não acredito em teorias da conspiração e fake news. Acredito nos fatos!",
+			     "3 - Onde há fusão há plasma. Se alguém espalha algo é por que pode ter algum fundo de verdade.",
+			     "4 - Outros. Justifique."
+			  
+		};
+		
+		String[] respostaKlingdonCulpado = {
+			"Acusar sem provas é um jogo perigoso. Povos inimigos e não simpatizantes com os Klingdons abraçaram essa fake news. Altos membros do Império aproveitaram "
+		   + " a oportunidade para eliminar o problema pela raiz. Primeiro porque os Klingdons traíram o Império e em segundo lugar para aproveitar que o inimigo estava fraco e doente "
+		   + " e provocar uma guerra para dizimá-los.",
+		     "",
+		     "10 dias solares depois a guerra foi deflagrada. Vários representantes enviaram frotas estelares e armamentos de destruição em massa. O planeta foi quase"
+		   + "totalmente destruído."
+		};
+		
+		
+		String[] respostaFatos = {
+				"Você e a grande maioria evitou um massacre. Ao acreditar nos fatos e não espalhar fake news o Império não teve justificativa para declarar uma guerra. Se isso acontecesse"
+			  + " seria um pretexto para o Império atacar outros planetas com a justificativa de evitar que o vírus se espalhasse. Evitando que mais seres morressem."
+		};
+		
+		String[] respostaEmCimaDoMuro = {
+				"Nada contra. Desconfiar é bom. Afinal não precisamos acreditar em tudo. Mas tem que esperar por provas concretas e evitar espalhar fake news. Afinal, vidas importam. Mesmo"
+			  + " que sejam os rebeldes e despresíveis Klingdons."
+		};
+		
+		String[] respostaOutros = {
+				"Sua opinião é muito importante! Mas no momento não podemos estar te atendendo senhor."
+		};
+		
+		
+		caminho.add(strEspaco);
+		caminho.add(strCapitulo + titulo);
+		
+		centralizarTexto(titulo, larguraTela);
+		System.out.println("");
+		
+		imprimeQuebra(enredo, 5);
+		
+		System.out.println("");
+		
+		centralizarTexto("+==================================================================================+", larguraTela);
+		centralizarTexto("Total de mortos até o momento na galáxia: " + geraTotal,larguraTela);
+		centralizarTexto("+==================================================================================+", larguraTela);
+		
+		System.out.println("");
+		System.out.print("Indique a sua opinião: ");
+		resposta = leitor.nextInt();
+		System.out.println("");
+		
+		switch(resposta) {
+		case 1:
+			imprimeQuebra(respostaKlingdonCulpado, 0);
+
+			caminho.add(strResposta + "(Op 1) Acusar sem provas é um jogo perigoso. Os Klingdons quase foram dizimados por conta do fake news.");
+			break;
+			
+		case 2:
+			imprimeQuebra(respostaKlingdonCulpado, 0);
+
+			caminho.add(strResposta + "(Op 2) Você e a grande maioria evitou um massacre.");
+			break;
+
+		case 3:
+			imprimeQuebra(respostaKlingdonCulpado, 0);
+
+			caminho.add(strResposta + "(Op 3) Nada contra. Desconfiar é bom. Afinal não precisamos acreditar em tudo.");
+			break;
+		
+		default:
+			
+			imprimeQuebra(respostaOutros, 0);
+			
+			System.out.println("");
+			System.out.print("Tempo de espera para atendimento: " + random.nextInt(100) + " minutos");
+
+
+			caminho.add(strResposta + "(Op 4) Sua opinião é importante");
+		}
+		
+		pausaEntreTelas();
+		
+	}
 	
+	
+	private static void placeboKina() {
+		int resposta;
+		String titulo;
+		
+		titulo = capitulo[5];
+		
+		String[] enredo = {
+				"CattleLand é governado pelo Lorde Jezziahs que tinha como sonho ser almirante da nave XPTO Enterprise. Mas, como nem tudo na"
+			  + " vida são flores, ele não foi qualificado ao tão almejado posto. Ao entrar na política, depois de anos sem sucesso, se aventurou"
+			  + " ao tentar chegar ao posto mais alto: governar um país inteiro.",
+			    "",
+			    
+
+			  
+			    
+		};
+	}
 	
 	
 	/*
@@ -692,20 +834,20 @@ public class FiapLivroJogo {
 				posicaoAtual = 0;
 				
 				while((linha.length() - posicaoInicial ) > larguraTela) {
-					while((posicaoAtual - posicaoInicial) < larguraTela ) { 
+					while(((posicaoAtual - posicaoInicial) < larguraTela) && (posicaoAtual >= 0)) { 
 						ultimaOcorrencia = posicaoAtual; 
 						posicaoAtual = linha.indexOf(charBusca, posicaoAtual + 1); 
 					}
 					
 					texto = linha.substring(posicaoInicial, ultimaOcorrencia);
-					imprimeCaracter(texto,10);
+					imprimeCaracter(texto, velocidade);
 
 					posicaoAtual = ultimaOcorrencia + 1; 
 					posicaoInicial = ultimaOcorrencia + 1;
 
 				}
 				texto = linha.substring(posicaoInicial);
-				imprimeCaracter(texto,velocidade);
+				imprimeCaracter(texto, velocidade);
 			} else {
 				System.out.println("");
 			}
@@ -713,34 +855,7 @@ public class FiapLivroJogo {
 		}
 
 	}
-	
-//	private static void imprimeQuebra(String texto, int velocidade) {
-//		int contaCaracteres = 0;
-//		
-//		for (String linha : texto) {
-//			if (linha == "") {
-//				System.out.println("");
-//				pausaMiliSegundos(velocidade * 20);
-//			} else {
-//				contaCaracteres = 0;
-//				for(int i = 0; i < linha.length();i++) {
-//					char caracter = linha.charAt(i);
-//					contaCaracteres ++;
-//					
-//					if(contaCaracteres > larguraTela) {
-//						System.out.println("");
-//						contaCaracteres = 1;
-//					} 
-//					
-//					System.out.print(caracter);
-//
-//					pausaMiliSegundos(velocidade);
-//				}
-//				System.out.println("");
-//			}
-//
-//		}		
-//	}
+
 	
 	private static void imprimeCaracter(String linha, int velocidade) {
 		int contaCaracteres = 0;
@@ -1045,11 +1160,11 @@ public class FiapLivroJogo {
 				"",
 				"                .            (*)  .-'.  ':'-.      .         ",
 				"       .                        .''::: .:    '.           (*)",
-				"                :              /   :::::'      \\   .        ",
+				"                :             /   :::::'      \\   .        ",
 				"                   (*)   ;    ;.    ':' `       ;            ",
 				"     .                        |       '..       |      :     ",
 				"          .                   ; '      ::::.    ;            ",
-				"     ,     .  .        .       \\       '::::   /         .  ",
+				"     ,     .  .        .      \\       '::::   /         .  ",
 				"                                '.      :::  .'              ",
 				"jgs                                '-.___'_.-'      (*)      ",
 				"         :          .       .                    .        .  "
