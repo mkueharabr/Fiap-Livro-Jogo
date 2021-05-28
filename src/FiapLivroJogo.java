@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -11,6 +12,8 @@ public class FiapLivroJogo {
  *  Nome do Jogo: Mario numa galáxia distante combatendo o virus zumbi
  *  
  *  Atividade realizada no módulo de Lógica de Programação de imersão Java Xpert
+ *  
+ *  Obs.: O código está limitado aos recursos aprendidos no módulo. Ele será refatorado posteriormente.
  *  
  */
 
@@ -68,19 +71,19 @@ public class FiapLivroJogo {
 		statusAtual = StatusJogo.VIVO;
 		String resposta = "1";
 		
-		limpaTela();
+		limparTela();
 		rolarTela(7,5);
-		imprimeTexto(aberturaJogo(), true);
-		pausaMiliSegundos(1000);
+		imprimirTexto(mostrarAberturaJogo(), true);
+		pausarMiliSegundos(1000);
 		
 		rolarTela(2,5);
-		pausaEntreTelas();
+		pausarEntreTelas();
 		
 		continuaSaga = apresentacao();
 		
 		if (continuaSaga) {
-			limpaTela();
-			abertura();
+			limparTela();
+			mostrarAbertura();
 			
 			while(continuaSaga) {
 				contaTentativas ++;
@@ -92,23 +95,25 @@ public class FiapLivroJogo {
 				
 				switch(resposta.toUpperCase()) {
 				case "1":
-					limpaTela();	
-					cenaKlingdonSentarJunto();
+					limparTela();	
+					mostrarCenaKlingdonSentarJunto();
 					
 				case "2":
-					limpaTela();
-					cenaKlingdonNaMesa();
+					limparTela();
+					mostrarCenaKlingdonNaMesa();
 					
 					if(statusAtual == StatusJogo.DOENTE) {
-						limpaTela();
-						cenaMarioUti();
+						limparTela();
+						mostrarCenaMarioUti();
 					}
 					
 					
 				
 				case "4":
-					limpaTela();
-					virusZumbi();
+					if(statusAtual == StatusJogo.DOENTE) {
+						limparTela();
+						mostrarCenaVirusZumbi();
+					}
 					
 					break;
 					
@@ -119,13 +124,14 @@ public class FiapLivroJogo {
 				
 				rolarTela(5,0);
 
-				imprimeListaCaminho(caminho);
+				imprimirListaCaminho(caminho);
 
 				System.out.println("Você gostaria de continuar e conhecer outras possibilidades?");
 				System.out.println("");
 				System.out.println("N - Não. Vou parar por aqui.");
 				System.out.println("1 - " + capitulo[1]);
 				System.out.println("2 - " + capitulo[2]);
+				System.out.println("4 - " + capitulo[4]);
 				System.out.println("");
 				System.out.print("Digite a sua opção: ");
 				resposta = leitor.next();		
@@ -142,13 +148,13 @@ public class FiapLivroJogo {
 			
 			rolarTela(10,10);
 			
-			imprimeListaCaminho(caminho);
+			imprimirListaCaminho(caminho);
 			
 		}
 
 		
 		rolarTela(10, 10);
-		imprimeTexto(gameOver(), true);
+		imprimirTexto(mostrarGameOverAscii(), true);
 		
 		leitor.close();
 
@@ -170,7 +176,7 @@ public class FiapLivroJogo {
 		
 		caminho.add("Apresentação");
 		
-		limpaTela();
+		limparTela();
 		
 		System.out.println("Olá, sou Jarvis, seu assistente virtual. Antes de começarmos preciso de algumas informações pessoais.");
 		System.out.println("");
@@ -182,7 +188,7 @@ public class FiapLivroJogo {
 		idadeGamer = leitor.nextInt();
 		
 		if(idadeGamer < idadeMinimaGamer) {
-			limpaTela();
+			limparTela();
 			
 			aviso = "Olá " + nomeGamer + ". Infelizmente esse jogo não é recomendado para menores de " + 
 					idadeMinimaGamer + " anos terrestres.";
@@ -195,13 +201,14 @@ public class FiapLivroJogo {
 			
 			continuar = false;
 			
-			pausaMiliSegundos(1000);
+			pausarMiliSegundos(1000);
 
 			
 		} else {
-			limpaTela();
+			limparTela();
 			
-			System.out.println(nomeGamer + ", esse jogo não é recomendado para pessoas sensíveis, nervosas ou alérgicas ao modo texto. ¯\\_(oO)_/¯");
+			System.out.println(nomeGamer + ", esse jogo não é recomendado para pessoas sensíveis aos efeitos estroboscópicos, nervosas ou "
+					+ "alérgicas ao modo texto. ¯\\_(oO)_/¯");
 			System.out.println("");
 			System.out.println("Se esse for o seu caso temos as seguintes opções:");
 			System.out.println("S - Para sair");
@@ -211,13 +218,13 @@ public class FiapLivroJogo {
 			resposta = leitor.next();
 			
 			if(resposta.toUpperCase().startsWith("S")) {
-				limpaTela();
+				limparTela();
 				System.out.println("Obrigado por sua sábia decisão.");
 				continuar = false;
 				
 				caminho.add(strCapitulo + "Pessoa sensível, nervosa ou alérgica ao modo texto.");
 				statusAtual = StatusJogo.SENSIVEL;
-				pausaMiliSegundos(4000);
+				pausarMiliSegundos(4000);
 
 			}
 		}
@@ -225,13 +232,12 @@ public class FiapLivroJogo {
 		return continuar;
 	}
 
-	private static void abertura() {
+	private static void mostrarAbertura() {
 		
 		String[] intro = {"Há muito tempo numa galáxia não tão tão distante ..."};
 		
 		String[] titulo = {"MARIO NUMA GALÁXIA NÃO TÃO TÃO DISTANTE COMBATENDO O VIRUS ZUMBI"};
 		
-		//                   12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
 		String [] resumo = {"Mario, o nosso herói, é um engenheiro encanador quântico que vive num planeta azul conhecido com Thera, onde "
 				          + "mora com a família e pets num reino chamado Cattleland.",
 							"",
@@ -269,30 +275,30 @@ public class FiapLivroJogo {
 		};
 		
 		rolarTela(15, 0);
-		imprimeTexto(intro, true);
-		pausaMiliSegundos(3000);
+		imprimirTexto(intro, true);
+		pausarMiliSegundos(3000);
 		
 		rolarTela(40, 0);
 		
-		imprimeTexto(titulo, true);
+		imprimirTexto(titulo, true);
 		System.out.println("");
 		
-		pausaMiliSegundos(1000);
+		pausarMiliSegundos(1000);
 		
-		imprimeQuebra(resumo, 15);
+		imprimirQuebra(resumo, 15);
 		
-		pausaMiliSegundos(3000);
+		pausarMiliSegundos(3000);
 		rolarTela(10, 300);
 		
-		imprimeTexto(thera(), true);
-		rolarTela(15, 300);
-		pausaMiliSegundos(1000);
+		imprimirTexto(mostrarTheraAscii(), true);
+		rolarTela(20, 300);
+		pausarMiliSegundos(1000);
 		
 
 	}
 	
 	// capitulo 01
-	private static void cenaKlingdonSentarJunto() {
+	private static void mostrarCenaKlingdonSentarJunto() {
 
 		int resposta;
 		String titulo;
@@ -313,7 +319,6 @@ public class FiapLivroJogo {
 		};
 		
 		String[] enredo = {
-//              12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
 
 				"Nosso herói está a bordo do intergalático cruzador MK70z_ fazendo reparos no hiper computador quântico PulsarVx,"
 			  + " quando pela janelinha avista o 'planetinha azul' e imagina quando retornará para casa.",
@@ -338,7 +343,7 @@ public class FiapLivroJogo {
 		centralizarTexto(titulo, larguraTela);
 		System.out.println("");
 		
-		imprimeQuebra(enredo, 5);
+		imprimirQuebra(enredo, 5);
 		System.out.println("");
 		
 		System.out.print("Digite a sua resposta: ");
@@ -349,24 +354,25 @@ public class FiapLivroJogo {
 		switch(resposta) {
 		case 1:
 			// lugar ocupado
-			imprimeQuebra(respostaOcupado, 0);
+			imprimirQuebra(respostaOcupado, 0);
 			caminho.add(strResposta + "(Op 1) Lugar ocupado na mesa pelo meu amigo imaginário ou invisível");
 			
 			break;
 			
 		default:
 			// qualquer outra opção, o lugar está livre
-			imprimeQuebra(respostaLivre, 0);
+			imprimirQuebra(respostaLivre, 0);
 			caminho.add(strResposta + "(Op 2) Lugar vago na mesa");
 			
 		}
 		
-		pausaEntreTelas();	
+		pausarEntreTelas();	
 		
 	}
 	
+	
 	// capitulo 02
-	private static void cenaKlingdonNaMesa() {
+	private static void mostrarCenaKlingdonNaMesa() {
 		int resposta;
 		String titulo;
 		
@@ -376,7 +382,8 @@ public class FiapLivroJogo {
 		  + "um pouco???!! Ficou metalizado e forte como adhamantium. E bastaram alguns golpes para derrubá-los.",
 			"",
 			"Uns escutaram um barulho de moedas caindo. Outros, como os Thoads, juram que o Mario disse algo como 'Pelos poderes de GraceCool, "
-		  + "EU TENHO A FORÇA!!!'. A verdade é que, nesses tempos de deepfake memes todo cuidado é pouco. E quem é GraceCool???",
+		  + "EU TENHO A FORÇA!!!'. A verdade é que, nesses tempos de deepfake memes todo cuidado é pouco. Não dá pra acreditar em tudo o que se"
+		  + "vê ou ouve. E quem é GraceCool???",
 			"",
 			"No final os dois Klingdons é que foram na enfermaria! Depois desse fato bizarro todos passaram a respeitá-lo. Reza a lenda que "
 		  + "Mario aprendeu alguns 'truques' quando atendeu a um chamado de uma nave que tinha afundado num pântano e  viu 'coisas' que um "
@@ -447,7 +454,7 @@ public class FiapLivroJogo {
 		centralizarTexto(titulo, larguraTela);
 		System.out.println("");
 		
-		imprimeQuebra(enredo, 5);
+		imprimirQuebra(enredo, 5);
 		
 		System.out.println("");
 		System.out.print("Digite a sua resposta: ");
@@ -457,7 +464,7 @@ public class FiapLivroJogo {
 		switch(resposta) {
 		case 1:
 			// recusar a bebida
-			imprimeQuebra(respostaRecusarBebida, 0);
+			imprimirQuebra(respostaRecusarBebida, 0);
 			
 			continuaSaga = true;
 			
@@ -466,7 +473,7 @@ public class FiapLivroJogo {
 			break;
 		case 2:
 			// beber
-			imprimeQuebra(respostaBeber, 0);
+			imprimirQuebra(respostaBeber, 0);
 
 			statusAtual = StatusJogo.DOENTE;
 			
@@ -477,7 +484,7 @@ public class FiapLivroJogo {
 
 		default:
 			// qualquer outra opção, derrubar a bebida
-			imprimeQuebra(respostaDerrubarBebida, 0);
+			imprimirQuebra(respostaDerrubarBebida, 0);
 
 			continuaSaga = true;
 			
@@ -486,13 +493,13 @@ public class FiapLivroJogo {
 			
 		}
 		
-		pausaEntreTelas();
+		pausarEntreTelas();
 		
 		//return continuaSaga;
 
 	}
 	
-	private static void cenaMarioUti() {
+	private static void mostrarCenaMarioUti() {
 		int resposta;
 		
 		String titulo = capitulo[3];
@@ -563,7 +570,7 @@ public class FiapLivroJogo {
 		centralizarTexto(titulo, larguraTela);
 		System.out.println("");
 		
-		imprimeQuebra(enredo, 5);
+		imprimirQuebra(enredo, 5);
 		
 		System.out.println("");
 		System.out.print("Que decisão você aconselharia aos médicos?");
@@ -572,7 +579,7 @@ public class FiapLivroJogo {
 		
 		switch(resposta) {
 		case 1:
-			imprimeQuebra(respostaOrgao, 0);
+			imprimirQuebra(respostaOrgao, 0);
 
 			continuaSaga = false;
 			statusAtual = StatusJogo.MORTO;
@@ -581,7 +588,7 @@ public class FiapLivroJogo {
 			break;
 			
 		case 2:
-			imprimeQuebra(respostaTratamentoPrecoce, 0);
+			imprimirQuebra(respostaTratamentoPrecoce, 0);
 
 			continuaSaga = true;
 			
@@ -589,7 +596,7 @@ public class FiapLivroJogo {
 			break;
 			
 		default:
-			imprimeQuebra(respostaNaoFazNada, 0);
+			imprimirQuebra(respostaNaoFazNada, 0);
 
 			continuaSaga = true;
 			
@@ -598,16 +605,18 @@ public class FiapLivroJogo {
 		}
 		
 
-		pausaEntreTelas();
+		pausarEntreTelas();
 
 	}
+	
 
-	private static void virusZumbi() {
+	private static void mostrarCenaVirusZumbi() {
 		int resposta;
 		String titulo;
+		String valorFormatado;
 		
 		Random random = new Random();
-		int geraTotal = random.nextInt(1000000000);
+		long geraTotal = random.nextInt(1000000000);
 		
 		
 		titulo = capitulo[4];
@@ -639,23 +648,27 @@ public class FiapLivroJogo {
 		};
 		
 		String[] respostaKlingdonCulpado = {
-			"Acusar sem provas é um jogo perigoso. Povos inimigos e não simpatizantes com os Klingdons abraçaram essa fake news. Altos membros do Império aproveitaram "
-		   + " a oportunidade para eliminar o problema pela raiz. Primeiro porque os Klingdons traíram o Império e em segundo lugar para aproveitar que o inimigo estava fraco e doente "
-		   + " e provocar uma guerra para dizimá-los.",
+			 "Acusar sem provas é um jogo perigoso. Povos inimigos e não simpatizantes com os Klingdons abraçaram essa fake news. Altos membros do Império aproveitaram "
+		   + "a oportunidade para eliminar o problema pela raiz. Primeiro porque os Klingdons traíram o Império e em segundo lugar para aproveitar que o inimigo estava fraco e doente "
+		   + "e provocar uma guerra para dizimá-los.",
 		     "",
-		     "10 dias solares depois a guerra foi deflagrada. Vários representantes enviaram frotas estelares e armamentos de destruição em massa. O planeta foi quase"
-		   + "totalmente destruído."
+		     "10 dias solares depois a guerra foi deflagrada. Vários representantes enviaram frotas estelares e armamentos de destruição em massa. O planeta foi quase "
+		   + "totalmente destruído.",
+		     "",
+		     "Infelizmente isso não resolveu nada pois, a doença já estava se alastrando para todo o Universo, inclusive no Império. O problema foram os seres que "
+		   + "não se cuidaram e passaram para outros. Com as várias mutações entre seres distintos, o vírus foi ficando mais mortal.",
+		     ""
 		};
 		
 		
 		String[] respostaFatos = {
-				"Você e a grande maioria evitou um massacre. Ao acreditar nos fatos e não espalhar fake news o Império não teve justificativa para declarar uma guerra. Se isso acontecesse"
-			  + " seria um pretexto para o Império atacar outros planetas com a justificativa de evitar que o vírus se espalhasse. Evitando que mais seres morressem."
+				"Você e a grande maioria evitou um massacre. Ao acreditar nos fatos, na ciência e não espalhar fake news o Império não teve justificativa para declarar uma guerra. Se isso acontecesse "
+			  + "seria um pretexto para o Império atacar outros planetas com a justificativa de evitar que o vírus se espalhasse. Evitando que mais seres morressem."
 		};
 		
 		String[] respostaEmCimaDoMuro = {
-				"Nada contra. Desconfiar é bom. Afinal não precisamos acreditar em tudo. Mas tem que esperar por provas concretas e evitar espalhar fake news. Afinal, vidas importam. Mesmo"
-			  + " que sejam os rebeldes e despresíveis Klingdons."
+				"Nada contra. Desconfiar é bom. Afinal não precisamos acreditar em tudo. Mas tem que esperar por provas concretas e evitar espalhar fake news. Afinal, vidas importam. Mesmo "
+			  + "que sejam os rebeldes e despresíveis Klingdons."
 		};
 		
 		String[] respostaOutros = {
@@ -669,12 +682,14 @@ public class FiapLivroJogo {
 		centralizarTexto(titulo, larguraTela);
 		System.out.println("");
 		
-		imprimeQuebra(enredo, 5);
+		imprimirQuebra(enredo, 5);
 		
 		System.out.println("");
 		
+		valorFormatado = new DecimalFormat("###,###").format(geraTotal);
+		
 		centralizarTexto("+==================================================================================+", larguraTela);
-		centralizarTexto("Total de mortos até o momento na galáxia: " + geraTotal,larguraTela);
+		centralizarTexto("Total de mortos até o momento na galáxia: " + valorFormatado,larguraTela);
 		centralizarTexto("+==================================================================================+", larguraTela);
 		
 		System.out.println("");
@@ -684,40 +699,40 @@ public class FiapLivroJogo {
 		
 		switch(resposta) {
 		case 1:
-			imprimeQuebra(respostaKlingdonCulpado, 0);
+			imprimirQuebra(respostaKlingdonCulpado, 0);
 
 			caminho.add(strResposta + "(Op 1) Acusar sem provas é um jogo perigoso. Os Klingdons quase foram dizimados por conta do fake news.");
 			break;
 			
 		case 2:
-			imprimeQuebra(respostaKlingdonCulpado, 0);
+			imprimirQuebra(respostaFatos, 0);
 
-			caminho.add(strResposta + "(Op 2) Você e a grande maioria evitou um massacre.");
+			caminho.add(strResposta + "(Op 2) Você e a grande maioria evitou um massacre. Confiar na ciência ");
 			break;
 
 		case 3:
-			imprimeQuebra(respostaKlingdonCulpado, 0);
+			imprimirQuebra(respostaEmCimaDoMuro, 0);
 
 			caminho.add(strResposta + "(Op 3) Nada contra. Desconfiar é bom. Afinal não precisamos acreditar em tudo.");
 			break;
 		
 		default:
 			
-			imprimeQuebra(respostaOutros, 0);
+			imprimirQuebra(respostaOutros, 0);
 			
 			System.out.println("");
-			System.out.print("Tempo de espera para atendimento: " + random.nextInt(100) + " minutos");
+			System.out.print("Tempo de espera para atendimento: " + random.nextInt(100) + " horas solares.");
 
 
-			caminho.add(strResposta + "(Op 4) Sua opinião é importante");
+			caminho.add(strResposta + "(Op 4) Sua opinião é muito importante.");
 		}
 		
-		pausaEntreTelas();
+		pausarEntreTelas();
 		
 	}
 	
 	
-	private static void placeboKina() {
+	private static void mostrarCenaPlaceboKina() {
 		int resposta;
 		String titulo;
 		
@@ -728,9 +743,17 @@ public class FiapLivroJogo {
 			  + " vida são flores, ele não foi qualificado ao tão almejado posto. Ao entrar na política, depois de anos sem sucesso, se aventurou"
 			  + " ao tentar chegar ao posto mais alto: governar um país inteiro.",
 			    "",
-			    
-
-			  
+			    "Com a doença fora de controle e sem cura definitiva, o governante criou um remédio milagroso para conter a ansiedade do povo: a placeb0K1na. "
+			  + "Na verdade aproveitou de um outro remédio existente e trocou o nome. O grande problema é que são utilizados nanarobôs que foram programados "
+			  + "para combater outra doença. Resultado: a intenção era funcionar como placebo mas, para algumas pessoas tem efeito colateral grave.",
+			    "",
+			    "Para alguns outros seres é mais fatal. Sem falar que exo-biohackers conseguem invadir e controlar os nanorôbos para atacar órgãos vitais ou até torná-los assassinos "
+			  + "controlando transplantados de cérebros. E isso não é fake. Mas o governo não divulga esses problemas.",
+			    "",
+			    "O plano ambicioso é utilizar a nave-satélite-do-tempo, conhecida como Weather Star. Para quem não a conhece, além de prever o tempo localmente em questão de "
+			  + "minutos é capaz de gerar chuvas, dias ensolarados e evitar furacões. A atmosfera é bombardeada como nano cápsulas contendo uma solução química para cada situação.",
+			    "",
+			    "A ideia seria bombardear a atmosfera com a placeb0K1na com os nano robôs na nano cápsulas. Obrigando todos a se 'imunizarem'."
 			    
 		};
 	}
@@ -743,36 +766,36 @@ public class FiapLivroJogo {
 	 * 
 	 * *****************************************************************
 	 */
-	private static void mostraAsciiStatus(StatusJogo status) {
+	private static void mostrarAsciiStatus(StatusJogo status) {
 		
 		switch(status) {
 		case VIVO :
-			imprimeTexto(statusVivoAscii(), true);
+			imprimirTexto(mostrarStatusVivoAscii(), true);
 			break;
 			
 		case MORTO:
-			imprimeTexto(statusMortoAscii(), true);
+			imprimirTexto(mostrarStatusMortoAscii(), true);
 			break;
 			
 		case ZUMBI:
-			imprimeTexto(statusZumbiAscii(), true);
+			imprimirTexto(mostrarStatusZumbiAscii(), true);
 			break;
 		
 		case SENSIVEL:
-			imprimeTexto(statusNervosoAscii(), true);
+			imprimirTexto(mostrarStatusNervosoAscii(), true);
 			break;
 			
 		case BLOQUEADO:
-			imprimeTexto(statusBloqueadoAscii(), true);
+			imprimirTexto(mostrarStatusBloqueadoAscii(), true);
 			break;
 			
 		default:
-			imprimeTexto(statusAlertAscii(), true);
+			imprimirTexto(mostrarStatusAlertAscii(), true);
 		}
 	}
 	
 
-	private static void pausaEntreTelas() {
+	private static void pausarEntreTelas() {
 		String resposta;
 		
 		System.out.println("");
@@ -780,7 +803,7 @@ public class FiapLivroJogo {
 		resposta = leitor.next();
 	}
 
-	private static void pausaMiliSegundos(int miliSeg) {
+	private static void pausarMiliSegundos(int miliSeg) {
 		try {
 			TimeUnit.MILLISECONDS.sleep(miliSeg);
 		} catch (InterruptedException e) {
@@ -788,7 +811,7 @@ public class FiapLivroJogo {
 		}		
 	}
 	
-	private static void limpaTela() throws IOException, InterruptedException {
+	private static void limparTela() throws IOException, InterruptedException {
 		if (System.getProperty("os.name").contains("Windows")) {
 			new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
 		} else {
@@ -800,14 +823,14 @@ public class FiapLivroJogo {
 	private static void rolarTela(int linhas, int tempoMiliSeg) {
 		for(int i = 0; i <= linhas; i++) {
 			System.out.println("");
-			pausaMiliSegundos(tempoMiliSeg);
+			pausarMiliSegundos(tempoMiliSeg);
 		}
 	}
 	
-	private static void imprimeTexto(String[] texto, boolean centralizado) {
+	private static void imprimirTexto(String[] texto, boolean centralizado) {
 		for (String linha : texto) {
 			if (linha == "") {
-				pausaMiliSegundos(1000);
+				pausarMiliSegundos(1000);
 			}
 			if(centralizado) {
 				centralizarTexto(linha, larguraTela);
@@ -819,7 +842,7 @@ public class FiapLivroJogo {
 	}
 	
 	
-	private static void imprimeQuebra(String[] srtTexto, int velocidade) {
+	private static void imprimirQuebra(String[] srtTexto, int velocidade) {
 		char charBusca = ' ';
 		String texto;
 		int posicaoInicial = 0;
@@ -840,14 +863,14 @@ public class FiapLivroJogo {
 					}
 					
 					texto = linha.substring(posicaoInicial, ultimaOcorrencia);
-					imprimeCaracter(texto, velocidade);
+					imprimirCaracter(texto, velocidade);
 
 					posicaoAtual = ultimaOcorrencia + 1; 
 					posicaoInicial = ultimaOcorrencia + 1;
 
 				}
 				texto = linha.substring(posicaoInicial);
-				imprimeCaracter(texto, velocidade);
+				imprimirCaracter(texto, velocidade);
 			} else {
 				System.out.println("");
 			}
@@ -857,13 +880,13 @@ public class FiapLivroJogo {
 	}
 
 	
-	private static void imprimeCaracter(String linha, int velocidade) {
+	private static void imprimirCaracter(String linha, int velocidade) {
 		int contaCaracteres = 0;
 		
 
 		if (linha == "") {
 			System.out.println("");
-			pausaMiliSegundos(velocidade * 20);
+			pausarMiliSegundos(velocidade * 20);
 		} else {
 			contaCaracteres = 0;
 			for(int i = 0; i < linha.length();i++) {
@@ -877,7 +900,7 @@ public class FiapLivroJogo {
 
 				System.out.print(caracter);
 
-				pausaMiliSegundos(velocidade);
+				pausarMiliSegundos(velocidade);
 			}
 			System.out.println("");
 		}
@@ -897,10 +920,10 @@ public class FiapLivroJogo {
 	}
 	
 	
-	private static void imprimeListaCaminho(ArrayList<String> historico) {
+	private static void imprimirListaCaminho(ArrayList<String> historico) {
 		// acrescenta o status no jogo
 		System.out.println(nomeGamer + " sua saga na aventura # " + contaTentativas + " chegou a um final. Seu status no jogo foi: " + statusAtual.getDescricao());
-		mostraAsciiStatus(statusAtual);
+		mostrarAsciiStatus(statusAtual);
 		
 		// mostra o histórico de escolhas
 		if(statusAtual == StatusJogo.BLOQUEADO || statusAtual == StatusJogo.SENSIVEL) {
@@ -919,7 +942,7 @@ public class FiapLivroJogo {
 		}
 		
 		System.out.println("");
-		pausaMiliSegundos(3000);
+		pausarMiliSegundos(3000);
 	}
 
 
@@ -933,7 +956,7 @@ public class FiapLivroJogo {
 	 ******************************************************************************************
 	 */
 	
-	private static String[] statusVivoAscii() {
+	private static String[] mostrarStatusVivoAscii() {
 		String[] statusVivo = {
 				"",
 				"It's me... alive!",
@@ -975,7 +998,7 @@ public class FiapLivroJogo {
 	}
 	
 	
-	private static String[] statusZumbiAscii() {
+	private static String[] mostrarStatusZumbiAscii() {
 		String[] statusZumbi = {
 				"",
 				"Oh no! Você virou um zumbi frankstein!",
@@ -1007,7 +1030,7 @@ public class FiapLivroJogo {
 	}
 	
 	
-	private static String[] statusNervosoAscii() {
+	private static String[] mostrarStatusNervosoAscii() {
 		String[] nervoso = {
 				"",
 				"Você é desprezível!",
@@ -1051,7 +1074,7 @@ public class FiapLivroJogo {
 		return nervoso;
 	}
 	
-	private static String[] statusMortoAscii() {
+	private static String[] mostrarStatusMortoAscii() {
 		String[] statusMorto = {
 				"",
 				"O triste fim do nosso engenheiro encanador quântico",
@@ -1077,7 +1100,7 @@ public class FiapLivroJogo {
 		return statusMorto;
 	}
 	
-	private static String[] statusBloqueadoAscii() {
+	private static String[] mostrarStatusBloqueadoAscii() {
 		String[] stop = {
 				"",
 				"Stop in the name of... Federação de Games!",
@@ -1111,7 +1134,7 @@ public class FiapLivroJogo {
 	}
 	
 	
-	private static String[]	statusAlertAscii() {
+	private static String[]	mostrarStatusAlertAscii() {
 		String[] alert = {
 				"",       
 				"                           .i;;;;i.                           ",       
@@ -1154,7 +1177,7 @@ public class FiapLivroJogo {
 		return alert;
 	}
 	
-	private static String[] thera() {
+	private static String[] mostrarTheraAscii() {
 		String[] thera = {
 				"Thera e suas 4 luas",
 				"",
@@ -1174,7 +1197,7 @@ public class FiapLivroJogo {
 		
 	}
 	
-	private static String[] gameOver() {
+	private static String[] mostrarGameOverAscii() {
 		String[] gameOver = {
 				"   _______      ___      .___  ___.  _______ ",
 				"  /  _____|    /   \\     |   \\/   | |   ____|",
@@ -1198,7 +1221,7 @@ public class FiapLivroJogo {
 		return gameOver;		    
 	}
 	
-	private static String[] aberturaJogo() {
+	private static String[] mostrarAberturaJogo() {
 		String[] aberturaGame = {
 				"",
 				"    ,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, ",

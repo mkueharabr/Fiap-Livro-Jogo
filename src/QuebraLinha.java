@@ -1,3 +1,5 @@
+import java.text.DecimalFormat;
+import java.util.Random;
 import java.util.Scanner;
 
 public class QuebraLinha {
@@ -35,12 +37,18 @@ public class QuebraLinha {
 				
 		};			
 		
+		
 		imprimeQuebra(enredo, 10);
 		
 		System.out.println("Coloque a sua opinião: ");
 		justificativa = leitor.next();
 		System.out.println("");
 		System.out.println("justificativa: " + justificativa);
+		
+		Random random = new Random();
+		long geraTotal = random.nextInt(1000000000);
+		String valorFormatado = new DecimalFormat("###,###").format(geraTotal);
+		System.out.println(valorFormatado);
 		
 		leitor.close();
 	
