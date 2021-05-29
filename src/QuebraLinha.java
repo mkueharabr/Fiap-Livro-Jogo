@@ -46,8 +46,8 @@ public class QuebraLinha {
 		System.out.println("justificativa: " + justificativa);
 		
 		Random random = new Random();
-		long geraTotal = random.nextInt(1000000000);
-		String valorFormatado = new DecimalFormat("###,###").format(geraTotal);
+		double geraTotal = 1321267523.4412;
+		String valorFormatado = new DecimalFormat("###,###.00").format(geraTotal);
 		System.out.println(valorFormatado);
 		
 		leitor.close();
