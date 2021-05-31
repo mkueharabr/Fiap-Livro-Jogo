@@ -89,6 +89,7 @@ public class FiapLivroJogo {
 		if (continuaSaga) {
 			limparTela();
 			mostrarAbertura();
+			pausarEntreTelas();
 			
 			while(continuaSaga) {
 				contaTentativas ++;
@@ -138,6 +139,7 @@ public class FiapLivroJogo {
 				rolarTela(5,0);
 
 				imprimirListaCaminho(caminho);
+				pausarEntreTelas();
 
 				resposta = retornarRespostaMenu();		
 
@@ -154,6 +156,7 @@ public class FiapLivroJogo {
 			rolarTela(10,10);
 			
 			imprimirListaCaminho(caminho);
+			pausarEntreTelas();
 			
 		}
 
@@ -536,7 +539,8 @@ public class FiapLivroJogo {
 				"Péssimas notícias. O plano do nosso humilde trabalhador não cobre cirurgias intergaláticas em distâncias maiores que 10 parsecs e "
 			  + "está limitado ao transplante de apenas 1 órgão artificial. Ele precisaria de 2, pelo menos.",
 				"Além disso, os órgãos estão em falta devido à um esquema de corrupção onde se está desviando uma grande quantidade de b1tM0edas, e "
-			  + "ultimamente só pessoas ricas que conseguem. E esse, infelizmente não é o caso do nosso honesto engenheiro encanador.",
+			  + "ultimamente só pessoas ricas que conseguem graças ao plano top das galáxias. E esse, infelizmente não é o caso do nosso honesto "
+			  + "engenheiro encanador.",
 				"",
 				"A esperança agora é que o diagnóstico seja o vírus. Ao chegar o resultado foi constado que a bebida tinha atacado o fígado, rins, "
 			  + "coração e outros órgãos.",
@@ -786,7 +790,7 @@ public class FiapLivroJogo {
 			    "",
 			    "E para variar Jezziahs queria mitar. Durante um passeio teve um insight daqueles e propôs um plano infalível: utilizar a nave-satélite-do-tempo, conhecida como Global "
 			  + "Weather Forecast Star. Para quem não a conhece, além de prever o tempo localmente em questão de minutos é capaz de gerar chuvas, dias ensolarados e até evitar furacões. "
-			  + "A atmosfera é bombardeada com nano cápsulas contendo uma solução química para cada situação. O Star no nome foi o apelidado dado pelo povo por ele brilha no céu.",
+			  + "A atmosfera é bombardeada com nano cápsulas contendo uma solução química para cada situação. O Star no nome foi o apelido dado pelo povo por ele brilha no céu.",
 			    "",
 			    "A ideia seria bombardear a atmosfera com a placeb0K1na com os nano robôs dentro das nano cápsulas. Isso faria com que todos ficassem 'imunizados' de uma vez só. Mas antes "
 			  + "de seguir com o plano é necessário enviar um equipe até a nave-satélite-do-tempo. Seria o primeiro remédio na nuvem.",
@@ -1159,6 +1163,7 @@ public class FiapLivroJogo {
 		// acrescenta o status no jogo
 		System.out.println(nomeGamer + " sua saga na aventura # " + contaTentativas + " chegou a um final. Seu status no jogo foi: " + statusAtual.getDescricao());
 		mostrarAsciiStatus(statusAtual);
+		pausarMiliSegundos(3000);
 		
 		// mostra o histórico de escolhas
 		if(statusAtual == StatusJogo.BLOQUEADO || statusAtual == StatusJogo.SENSIVEL) {
